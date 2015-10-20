@@ -47,6 +47,9 @@ public class PlayerController2 : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+		if (this.transform.position.y < -50)
+			Destroy (gameObject);
+
 		Vector3 velocity = _controller.velocity;
 		float inputX = Input.GetAxis ("Horizontal");
 		//Vector2 shotDirection = Vector2.zero;
