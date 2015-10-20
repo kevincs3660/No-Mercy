@@ -7,11 +7,13 @@ public class PlayerController2 : MonoBehaviour {
 	public float speed = 8;
 	public float gravity = -35;
 	public float jumpHeight = 5;
+	public int meleeTimer = 20;
 
 	private CharacterController2D _controller;
 	private WeaponScript[] _weapons;
 	private bool facingRight = true;
-	private int meleeTimer = 50;
+
+	private int meleeTimerReset;
 	private int dashTime = 20;
 	private bool dashEnabled = true;
 	private float dashCounter;
@@ -36,6 +38,7 @@ public class PlayerController2 : MonoBehaviour {
 	{
 		dashCounter = dashTime;
 		dashCooldownCounter = dashCooldown;
+		meleeTimerReset = meleeTimer;
 		state = characterStates.IDLE;
 		_weapons = GetComponentsInChildren<WeaponScript>();
 	}
@@ -54,7 +57,7 @@ public class PlayerController2 : MonoBehaviour {
 		float inputX = Input.GetAxis ("Horizontal");
 		//Vector2 shotDirection = Vector2.zero;
 		//bool shoot = Input.GetButtonDown ("Fire1");
-		bool shoot = Input.GetKey (KeyCode.RightArrow);
+		bool shoot = Input.GetKey (KeyCode.RightArrow) || Input.GetKey (KeyCode.LeftArrow);
 
 		//Debug.Log ("Axis is: " + inputX.ToString ());
 		//Debug.Log ("State is : " + state);
@@ -266,7 +269,7 @@ public class PlayerController2 : MonoBehaviour {
 				//_weapons[0].Attack(false, shotDirection);
 			}
 
-			velocity.y += gravity * Time.deltaTime;
+			velocity.y += gravity * Time.deltaTime; // Take out -20
 			_controller.move (velocity * Time.deltaTime);
 
 			if(_controller.isGrounded)
@@ -286,7 +289,7 @@ public class PlayerController2 : MonoBehaviour {
 			if(meleeTimer <= 0)
 			{
 				state = characterStates.IDLE;
-				meleeTimer = 50;
+				meleeTimer = meleeTimerReset;
 			}
 
 			break;
@@ -311,14 +314,15 @@ public class PlayerController2 : MonoBehaviour {
 	void OnCollisionEnter2D(Collision2D collision)
 	{
 		bool damagePlayer = false;
-		//Debug.Log ("Player colliding!!!");
+		Debug.Log ("Player colliding!!!");
 		// Collision with enemy
 		MeleeEnemyScript enemy = collision.gameObject.GetComponent<MeleeEnemyScript>();
 		if (enemy != null)
 		{
 			// Kill the enemy
 			HealthScript enemyHealth = enemy.GetComponent<HealthScript>();
-			if (enemyHealth != null) enemyHealth.Damage(enemyHealth.hp);
+			//if (enemyHealth != null) 
+			//	enemyHealth.Damage(enemyHealth.hp);
 			
 			damagePlayer = true;
 		}
@@ -327,7 +331,8 @@ public class PlayerController2 : MonoBehaviour {
 		if (damagePlayer)
 		{
 			HealthScript playerHealth = this.GetComponent<HealthScript>();
-			if (playerHealth != null) playerHealth.Damage(1);
+			if (playerHealth != null) 
+				playerHealth.Damage(1);
 		}
 	}
 

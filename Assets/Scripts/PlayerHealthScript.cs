@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
+using System.Collections;
+using UnityEngine;
 
 /// <summary>
 /// Handle hitpoints and damages
 /// </summary>
-public class HealthScript : MonoBehaviour
+public class PlayerHealthScript : MonoBehaviour
 {
 	/// <summary>
 	/// Total hitpoints
@@ -33,9 +35,9 @@ public class HealthScript : MonoBehaviour
 	void OnTriggerEnter2D(Collider2D otherCollider)
 	{
 		// Is this a shot?
-		//Debug.Log ("COLLISION");
+		Debug.Log ("COLLISION");
 		ShotScript shot = otherCollider.gameObject.GetComponent<ShotScript>();
-
+		
 		if (shot != null)
 		{
 			// Avoid friendly fire
@@ -44,10 +46,22 @@ public class HealthScript : MonoBehaviour
 				Damage(shot.damage);
 				
 				// Destroy the shot
-				Debug.Log("Killin ratata");
 				Destroy(shot.gameObject); // Remember to always target the game object, otherwise you will just remove the script
 			}
 		}
-	
-	}	
+		
+	}
+	/*
+	void OnCollisionEnter2D(Collision2D collider)
+	{
+		Debug.Log("MELEE ENEMY COLLISION");
+		MeleeEnemyScript melee = collider.gameObject.GetComponent<MeleeEnemyScript>();
+		if(melee != null)
+		{
+			Debug.Log("MELEE ENEMY COLLISION");
+			Damage (melee.damage);
+			
+		}
+	}
+	*/
 }
