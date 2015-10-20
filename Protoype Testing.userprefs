@@ -1,0 +1,23 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\HealthScript.cs">
+    <Files>
+      <File FileName="Assets\Scripts\MeleeEnemyScript.cs" Line="52" Column="3" />
+      <File FileName="Assets\Scripts\RangedEnemyScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\HealthScript.cs" Line="17" Column="2" />
+      <File FileName="Assets\Scripts\PlayerController2.cs" Line="330" Column="18" />
+      <File FileName="Assets\Scripts\MoveTowardPlayerRanged.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\RendererExtensions.cs.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\ScrollingScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\MoveScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\ShotScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\WeaponScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\StationaryEnemyScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\GameOverScript.cs" Line="1" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
