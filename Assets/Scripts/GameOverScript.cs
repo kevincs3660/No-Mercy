@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEditor;
 
 /// <summary>
 /// Start or quit the game
@@ -24,7 +25,8 @@ public class GameOverScript : MonoBehaviour
 			)
 		{
 			// Reload the level
-			Application.LoadLevel("scene02");
+			//Debug.Log (Application.loadedLevelName);
+			Application.LoadLevel(Application.loadedLevelName);
 		}
 
 		if(GUI.Button(new Rect(Screen.width/2 - (buttonWidth/2),(1 * Screen.height/3) - (buttonHeight/2) + 100, buttonWidth, buttonHeight), "Main Menu"))
