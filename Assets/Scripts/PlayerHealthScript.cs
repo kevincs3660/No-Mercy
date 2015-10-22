@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEngine;
+
 
 /// <summary>
 /// Handle hitpoints and damages

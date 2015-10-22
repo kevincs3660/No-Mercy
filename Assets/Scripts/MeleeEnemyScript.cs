@@ -11,13 +11,13 @@ public class MeleeEnemyScript : MonoBehaviour {
 	public Vector2 speed = new Vector2(1, 0);
 	public int damage = 1;
 
-	private Rigidbody2D rb;
+	//private Rigidbody2D rb;
 	private Vector2 direction;
 	private Vector2 movement;
 	// Use this for initialization
 	void Start () {
 
-		rb = GetComponent<Rigidbody2D>();
+		//rb = GetComponent<Rigidbody2D>();
 		GameObject player = GameObject.Find ("Player");
 		player1 = (PlayerController2)player.GetComponent (typeof(PlayerController2));
 

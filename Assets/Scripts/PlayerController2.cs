@@ -8,11 +8,14 @@ public class PlayerController2 : MonoBehaviour {
 	public float gravity = -35;
 	public float jumpHeight = 5;
 	public int meleeTimer = 20;
+	public int rapidFireTimer = 100;
 
 	private CharacterController2D _controller;
 	private WeaponScript[] _weapons;
 	private bool facingRight = true;
 
+	private float oldFiringRate; 
+	private int rapidFireTimerReset;
 	private int meleeTimerReset;
 	private int dashTime = 20;
 	private bool dashEnabled = true;
@@ -20,6 +23,7 @@ public class PlayerController2 : MonoBehaviour {
 	private int dashCooldown = 50;
 	private int dashCooldownCounter;
 	private bool dashing;
+	//private bool rapidFire = false;
 	enum characterStates
 	{
 		IDLE = 0,
@@ -36,6 +40,7 @@ public class PlayerController2 : MonoBehaviour {
 
 	void Awake()
 	{
+		rapidFireTimerReset = rapidFireTimer;
 		dashCounter = dashTime;
 		dashCooldownCounter = dashCooldown;
 		meleeTimerReset = meleeTimer;
@@ -58,6 +63,7 @@ public class PlayerController2 : MonoBehaviour {
 		//Vector2 shotDirection = Vector2.zero;
 		//bool shoot = Input.GetButtonDown ("Fire1");
 		bool shoot = Input.GetKey (KeyCode.RightArrow) || Input.GetKey (KeyCode.LeftArrow);
+
 
 		//Debug.Log ("Axis is: " + inputX.ToString ());
 		//Debug.Log ("State is : " + state);
@@ -92,7 +98,7 @@ public class PlayerController2 : MonoBehaviour {
 				velocity.y = Mathf.Sqrt (2f * jumpHeight * -gravity);
 			}
 
-			if (Input.GetKey (KeyCode.DownArrow) == true) {
+			if (Input.GetKeyDown (KeyCode.DownArrow) == true) {
 				if (_weapons[2] != null && _weapons[3] != null)
 					if(facingRight)
 						_weapons[2].Attack(false);
@@ -178,7 +184,7 @@ public class PlayerController2 : MonoBehaviour {
 				velocity.y = Mathf.Sqrt (2f * jumpHeight * -gravity);
 			}
 
-			if (Input.GetKey (KeyCode.DownArrow) == true) {
+			if (Input.GetKeyDown (KeyCode.DownArrow) == true) {
 				if (_weapons[2] != null && _weapons[3] != null)
 					if(facingRight)
 					_weapons[2].Attack(false);
@@ -311,16 +317,36 @@ public class PlayerController2 : MonoBehaviour {
 			);
 	}
 
+	void OnTriggerEnter2D(Collider2D collision)
+	{
+		RapidFireScript rapid = collision.gameObject.GetComponent<RapidFireScript>();
+		// Rapid fire upgrade checking 
+		if(rapid != null)
+		{
+			Debug.Log("RAPID FIRE COLLISION");
+			//rapidFire = true; 
+			foreach(WeaponScript weapon in _weapons)
+			{
+				oldFiringRate = weapon.shootingRate;
+				weapon.shootingRate = rapid.shootingRate;
+			}
+			StartCoroutine(upgradeTimerRoutine(rapid.time));
+			Destroy(rapid.gameObject);
+		}
+	}
+
 	void OnCollisionEnter2D(Collision2D collision)
 	{
 		bool damagePlayer = false;
 		Debug.Log ("Player colliding!!!");
 		// Collision with enemy
 		MeleeEnemyScript enemy = collision.gameObject.GetComponent<MeleeEnemyScript>();
+
+
 		if (enemy != null)
 		{
 			// Kill the enemy
-			HealthScript enemyHealth = enemy.GetComponent<HealthScript>();
+			//HealthScript enemyHealth = enemy.GetComponent<HealthScript>(); // took this out for some reason
 			//if (enemyHealth != null) 
 			//	enemyHealth.Damage(enemyHealth.hp);
 			
@@ -334,6 +360,31 @@ public class PlayerController2 : MonoBehaviour {
 			if (playerHealth != null) 
 				playerHealth.Damage(1);
 		}
+
+
+	}
+
+	IEnumerator upgradeTimerRoutine (float timelength){
+
+		float timer = 0;
+
+		while (timer < timelength){
+
+			//do this thing
+
+			timer += Time.deltaTime;
+			yield return null;
+
+		}
+
+		rapidFireTimer = rapidFireTimerReset;
+		//rapidFire = false;
+		foreach(WeaponScript weapon in _weapons)
+		{
+			weapon.shootingRate = oldFiringRate;
+		}
+		//do this last thing
+
 	}
 
 	void OnDestroy()

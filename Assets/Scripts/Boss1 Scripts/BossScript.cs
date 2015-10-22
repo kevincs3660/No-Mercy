@@ -1,15 +1,28 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 /// <summary>
 /// Enemy generic behavior
 /// </summary>
 public class BossScript: MonoBehaviour
 {
+	public GameObject rat1;
+	public GameObject rat2;
+	public GameObject rat3;
+	public GameObject rat4;
+	public GameObject rat5;
+
+	public int numberOfRats = 5;
+
+	private GameObject[] rats;
 	private WeaponScript[] weapons;
 	private HealthScript health;
 
+	private Vector2 initalPosition;
+	private float initialFiringRate;
 	private int hp; 
 	private bool hp2phase = false;
+	private bool hp1phase = false;
 	
 	void Awake()
 	{
@@ -22,6 +35,10 @@ public class BossScript: MonoBehaviour
 	// 1 - Disable everything
 	void Start()
 	{
+		rats = new GameObject[] {rat1,rat2,rat3,rat4,rat5};
+		initialFiringRate = weapons[0].shootingRate;
+		//Debug.Log("Old firing rate" + initialFiringRate);
+		initalPosition = transform.position;
 		health = this.GetComponent<HealthScript>();
 		hp = health.hp;
 	}
@@ -33,10 +50,115 @@ public class BossScript: MonoBehaviour
 
 		if(hp == 2 && !hp2phase)
 		{
-			Debug.Log ("Adding script");
-			this.gameObject.AddComponent<Boss1HP2Script>();
+			Debug.Log ("Starting Coroutine");
+			StartCoroutine(HP2());
 			hp2phase = true;
 		}
+		else if(hp == 1 && !hp1phase)
+		{
+			StartCoroutine(HP1 ());
+			hp1phase = true;
+		}
 
+	}
+
+
+	IEnumerator HP2 (){
+		
+		float timer = 0;
+
+		/*for(int i = 0; i < numberOfRats; i++)
+		{
+			Instantiate(rats[i]);
+		}*/
+		foreach(GameObject rat in rats)
+			Instantiate(rat);
+
+		//this.transform.position = new Vector3(Screen.width/2, Screen.height/2 , 0);
+
+		Vector2 movement = new Vector2 (-Screen.width, 300);
+		//Vector2 movement = new Vector2 (-1000, 300);
+		movement *= Time.deltaTime;
+		Debug.Log (Screen.width/2);
+		
+		transform.Translate (movement);
+		//transform.position = new Vector2(Screen.width/2, 300);
+
+		while (timer < 5){
+			
+			//do this thing
+			foreach(WeaponScript weapon in weapons)
+			{
+				//oldFiringRate = weapon.shootingRate;
+				//Debug.Log ("Old firing rate" + oldFiringRate);
+				weapon.shootingRate = initialFiringRate / 3;
+			}
+			
+			timer += Time.deltaTime;
+
+			//Debug.Log ("Inside while");
+			yield return null;
+		}
+
+		Debug.Log("Made it to the end");
+
+		foreach(WeaponScript weapon in weapons)
+		{
+			//Debug.Log("setting to oldfirerate" + oldFiringRate);
+			weapon.shootingRate = initialFiringRate / 2;
+		}
+
+		//Vector2 movement2 = initalPosition;
+		//movement2 = initalPosition;
+		//movement2 *= Time.deltaTime;
+		transform.position = initalPosition;
+	
+
+		//do this last thing
+	}
+
+	IEnumerator HP1 ()
+	{
+		float timer = 0;
+		
+		//this.transform.position = new Vector3(Screen.width/2, Screen.height/2 , 0);
+		foreach(GameObject rat in rats)
+			Instantiate(rat);
+		
+		Vector2 movement = new Vector2 (-Screen.width, 300);
+		movement *= Time.deltaTime;
+		//Debug.Log (Screen.width/2);
+		
+		transform.Translate (movement);
+		//transform.position = new Vector2(Screen.width/2, 300);
+		
+		while (timer < 5){
+			
+			//do this thing
+			foreach(WeaponScript weapon in weapons)
+			{
+				//oldFiringRate = weapon.shootingRate;
+				//Debug.Log ("Old firing rate" + oldFiringRate);
+				weapon.shootingRate = initialFiringRate / 6;
+			}
+			
+			timer += Time.deltaTime;
+			
+			//Debug.Log ("Inside while");
+			yield return null;
+		}
+		
+		Debug.Log("Made it to the end");
+		
+		foreach(WeaponScript weapon in weapons)
+		{
+			//Debug.Log("setting to oldfirerate" + oldFiringRate);
+			weapon.shootingRate = initialFiringRate / 4;
+		}
+		
+		//Vector2 movement2 = initalPosition;
+		//movement2 = initalPosition;
+		//movement2 *= Time.deltaTime;
+		transform.position = initalPosition;
 	}
 }

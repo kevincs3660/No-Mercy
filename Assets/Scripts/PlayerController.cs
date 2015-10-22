@@ -37,7 +37,7 @@ public class PlayerController : MonoBehaviour {
 
 		Vector3 velocity = _controller.velocity;
 		float inputX = Input.GetAxis ("Horizontal");
-		Vector2 shotDirection = Vector2.zero;
+		//Vector2 shotDirection = Vector2.zero; // took this out recently 
 
 		//Debug.Log ("Axis is: " + inputX.ToString ());
 

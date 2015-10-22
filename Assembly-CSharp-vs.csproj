@@ -46,7 +46,6 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\Boss1 Scripts\Boss1HP2Script.cs" />
      <Compile Include="Assets\Scripts\Boss1 Scripts\BossScript.cs" />
      <Compile Include="Assets\Scripts\CameraFollow2D.cs" />
      <Compile Include="Assets\Scripts\CharacterController2D.cs" />
@@ -61,6 +60,7 @@
      <Compile Include="Assets\Scripts\PlayerController2.cs" />
      <Compile Include="Assets\Scripts\PlayerHealthScript.cs" />
      <Compile Include="Assets\Scripts\RangedEnemyScript.cs" />
+     <Compile Include="Assets\Scripts\RapidFireScript.cs" />
      <Compile Include="Assets\Scripts\RendererExtensions.cs.cs" />
      <Compile Include="Assets\Scripts\ScrollingScript.cs" />
      <Compile Include="Assets\Scripts\ShotScript.cs" />
