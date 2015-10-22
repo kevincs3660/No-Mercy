@@ -16,16 +16,9 @@ public class MoveTowardPlayerRanged : MonoBehaviour {
 		GameObject player = GameObject.Find ("Player");
 		if(player != null)
 			player1 = (PlayerController2)player.GetComponent (typeof(PlayerController2));
-		//GameObject parent = player.transform.parent.gameObject.transform.position.x;
-		//player1 = (PlayerController2)GameObject.Find ("Player");
-		//player x = transform.Find("Player").GetComponent.
-		//playerx =  player1.transform.position.x; //+ Mathf.Abs(player.transform.parent.gameObject.transform.position.x);
-		//playery = player1.transform.position.y;
+
 		if(player1 != null)
 			direction = (player1.transform.position - this.transform.position).normalized;
-		//Debug.Log (this.transform.position.z);
-		//Debug.Log ("Player X: " + playerx + " Player Y: " + playery);
-		//Debug.Log ("Transform parent x: " + player.transform.parent.gameObject.transform.position.x + " Tranform parent y: " + player.transform.parent.gameObject.transform.position.y);
 	}
 	
 	// Update is called once per frame
