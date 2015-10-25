@@ -71,8 +71,8 @@ public class BossScript: MonoBehaviour
 		{
 			Instantiate(rats[i]);
 		}*/
-		foreach(GameObject rat in rats)
-			Instantiate(rat);
+		Instantiate (rats [1]);
+		Instantiate (rats [3]);
 
 		//this.transform.position = new Vector3(Screen.width/2, Screen.height/2 , 0);
 
@@ -105,7 +105,7 @@ public class BossScript: MonoBehaviour
 		foreach(WeaponScript weapon in weapons)
 		{
 			//Debug.Log("setting to oldfirerate" + oldFiringRate);
-			weapon.shootingRate = initialFiringRate / 2;
+			weapon.shootingRate = initialFiringRate / 1.5f;
 		}
 
 		//Vector2 movement2 = initalPosition;
@@ -139,7 +139,7 @@ public class BossScript: MonoBehaviour
 			{
 				//oldFiringRate = weapon.shootingRate;
 				//Debug.Log ("Old firing rate" + oldFiringRate);
-				weapon.shootingRate = initialFiringRate / 6;
+				weapon.shootingRate = initialFiringRate / 5;
 			}
 			
 			timer += Time.deltaTime;
@@ -153,7 +153,7 @@ public class BossScript: MonoBehaviour
 		foreach(WeaponScript weapon in weapons)
 		{
 			//Debug.Log("setting to oldfirerate" + oldFiringRate);
-			weapon.shootingRate = initialFiringRate / 4;
+			weapon.shootingRate = initialFiringRate / 3;
 		}
 		
 		//Vector2 movement2 = initalPosition;
