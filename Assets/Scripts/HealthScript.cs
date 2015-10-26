@@ -44,7 +44,7 @@ public class HealthScript : MonoBehaviour
 				Damage(shot.damage);
 				
 				// Destroy the shot
-				Debug.Log("Killin ratata");
+				//Debug.Log("Killin ratata");
 				Destroy(shot.gameObject); // Remember to always target the game object, otherwise you will just remove the script
 			}
 		}
