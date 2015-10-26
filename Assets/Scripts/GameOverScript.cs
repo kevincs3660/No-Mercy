@@ -25,12 +25,14 @@ public class GameOverScript : MonoBehaviour
 			)
 		{
 			// Reload the level
-			//Debug.Log (Application.loadedLevelName);
-			Application.LoadLevel(Application.loadedLevelName);
+			Debug.Log (Application.loadedLevelName);
+			//Application.LoadLevel(Application.loadedLevelName);
+			Application.LoadLevel("BossTest");
 		}
 
 		if(GUI.Button(new Rect(Screen.width/2 - (buttonWidth/2),(1 * Screen.height/3) - (buttonHeight/2) + 100, buttonWidth, buttonHeight), "Main Menu"))
 		{
+			Debug.Log("Loading main menu");
 			Application.LoadLevel("MainMenu");
 		}
 	}
