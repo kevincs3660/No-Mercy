@@ -25,7 +25,7 @@ public class MenuScript : MonoBehaviour
 		{
 			// On Click, load the first level.
 			// "Stage1" is the name of the first scene we created.
-			Application.LoadLevel("scene03");
+			Application.LoadLevel("Level1");
 		}
 
 		GUI.Label (new Rect(400,50,100,200), "NO MERCY!!!!");

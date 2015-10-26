@@ -60,6 +60,18 @@ public class BossScript: MonoBehaviour
 			hp1phase = true;
 		}
 
+
+	}
+
+	IEnumerator Dead()
+	{
+		float timer = 0;
+		while(timer < 5)
+		{
+			timer += Time.deltaTime;
+			yield return null;
+		}
+		Application.LoadLevel("MainMenu");
 	}
 
 
@@ -160,5 +172,10 @@ public class BossScript: MonoBehaviour
 		//movement2 = initalPosition;
 		//movement2 *= Time.deltaTime;
 		transform.position = initalPosition;
+	}
+
+	void OnDestroy()
+	{
+		Application.LoadLevel("MainMenu");
 	}
 }
