@@ -9,6 +9,8 @@ public class PlayerController2 : MonoBehaviour {
 	public float jumpHeight = 5;
 	public int meleeTimer = 20;
 	public int rapidFireTimer = 100;
+	public Sprite facingLeftImage;
+	public Sprite facingRightImage;
 
 	private CharacterController2D _controller;
 	private WeaponScript[] _weapons;
@@ -83,11 +85,13 @@ public class PlayerController2 : MonoBehaviour {
 				velocity.x = -speed;
 				facingRight = false;
 				state = characterStates.RUNNING;
+				gameObject.GetComponent<SpriteRenderer>().sprite = facingLeftImage;
 				//shotDirection = -transform.right;
 			} else if (inputX > 0) {
 				velocity.x = speed;
 				facingRight = true;
 				state = characterStates.RUNNING;
+				gameObject.GetComponent<SpriteRenderer>().sprite = facingRightImage;
 				//shotDirection = transform.right;
 			}
 
@@ -152,10 +156,12 @@ public class PlayerController2 : MonoBehaviour {
 			if (inputX < 0) {
 				velocity.x = -speed;
 				facingRight = false;
+				gameObject.GetComponent<SpriteRenderer>().sprite = facingLeftImage;
 				//shotDirection = -transform.right;
 			} else if (inputX > 0) {
 				velocity.x = speed;
 				facingRight = true;
+				gameObject.GetComponent<SpriteRenderer>().sprite = facingRightImage;
 				//shotDirection = transform.right;
 			}
 			else
@@ -229,10 +235,12 @@ public class PlayerController2 : MonoBehaviour {
 			if (inputX < 0) {
 				velocity.x = -speed * 1f;
 				facingRight = false;
+				gameObject.GetComponent<SpriteRenderer>().sprite = facingLeftImage;
 				//shotDirection = -transform.right;
 			} else if (inputX > 0) {
 				velocity.x = speed * 1f;
 				facingRight = true;
+				gameObject.GetComponent<SpriteRenderer>().sprite = facingRightImage;
 				//shotDirection = transform.right;
 			}
 			else
