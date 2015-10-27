@@ -51,6 +51,7 @@
      <Compile Include="Assets\Scripts\CharacterController2D.cs" />
      <Compile Include="Assets\Scripts\EndLevel1Script.cs" />
      <Compile Include="Assets\Scripts\GameOverScript.cs" />
+     <Compile Include="Assets\Scripts\GameWinScript.cs" />
      <Compile Include="Assets\Scripts\HealthScript.cs" />
      <Compile Include="Assets\Scripts\MeleeDestroyScript.cs" />
      <Compile Include="Assets\Scripts\MeleeEnemyScript.cs" />

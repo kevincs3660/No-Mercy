@@ -176,6 +176,23 @@ public class BossScript: MonoBehaviour
 
 	void OnDestroy()
 	{
-		Application.LoadLevel("MainMenu");
+		transform.parent.gameObject.AddComponent<GameWinScript>();
+		//GameObject player = GameObject.Find ("Player");
+		//if(player != null)
+		//	StartCoroutine(bossDead());
+			//Application.LoadLevel("MainMenu");
 	}
+	/*
+	IEnumerator bossDead()
+	{
+		float timer = 0;
+
+		while(timer < 5);
+		{
+			Debug.Log ("IN WHILE");
+			timer += Time.deltaTime;
+			yield return null;
+		}
+		Application.LoadLevel("MainMenu");
+	}*/
 }

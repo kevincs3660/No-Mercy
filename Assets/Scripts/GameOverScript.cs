@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using UnityEditor;
+
 
 /// <summary>
 /// Start or quit the game
@@ -25,14 +25,15 @@ public class GameOverScript : MonoBehaviour
 			)
 		{
 			// Reload the level
-			Debug.Log (Application.loadedLevelName);
+			Debug.Log (Application.loadedLevel);
 			//Application.LoadLevel(Application.loadedLevelName);
-			Application.LoadLevel("BossTest");
+			Application.LoadLevel(Application.loadedLevel);
 		}
 
 		if(GUI.Button(new Rect(Screen.width/2 - (buttonWidth/2),(1 * Screen.height/3) - (buttonHeight/2) + 100, buttonWidth, buttonHeight), "Main Menu"))
 		{
 			Debug.Log("Loading main menu");
+			//Application.LoadLevel("MainMenu");
 			Application.LoadLevel("MainMenu");
 		}
 	}
