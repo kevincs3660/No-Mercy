@@ -328,10 +328,18 @@ public class PlayerController2 : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D collision)
 	{
 		RapidFireScript rapid = collision.gameObject.GetComponent<RapidFireScript>();
+		InvincibilityScript invincible = collision.gameObject.GetComponent<InvincibilityScript>();
+
+		if(invincible != null)
+		{
+			HealthScript playerhealth = this.GetComponent<HealthScript>();
+			playerhealth.hp = 2000;
+			StartCoroutine(invincibilityRoutine(invincible.timeLength, playerhealth));
+			Destroy(invincible.gameObject);
+		}
 		// Rapid fire upgrade checking 
 		if(rapid != null)
 		{
-			Debug.Log("RAPID FIRE COLLISION");
 			//rapidFire = true; 
 			foreach(WeaponScript weapon in _weapons)
 			{
@@ -346,7 +354,6 @@ public class PlayerController2 : MonoBehaviour {
 	void OnCollisionEnter2D(Collision2D collision)
 	{
 		bool damagePlayer = false;
-		Debug.Log ("Player colliding!!!");
 		// Collision with enemy
 		MeleeEnemyScript enemy = collision.gameObject.GetComponent<MeleeEnemyScript>();
 
@@ -392,6 +399,20 @@ public class PlayerController2 : MonoBehaviour {
 			weapon.shootingRate = oldFiringRate;
 		}
 		//do this last thing
+
+	}
+
+	IEnumerator invincibilityRoutine(float timelength, HealthScript playerhealth)
+	{
+		float timer = 0;
+
+		while (timer < timelength)
+		{
+			timer += Time.deltaTime;
+			yield return null;
+		}
+
+		playerhealth.hp = 1;
 
 	}
 

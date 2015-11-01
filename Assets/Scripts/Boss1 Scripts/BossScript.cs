@@ -37,7 +37,6 @@ public class BossScript: MonoBehaviour
 	{
 		rats = new GameObject[] {rat1,rat2,rat3,rat4,rat5};
 		initialFiringRate = weapons[0].shootingRate;
-		//Debug.Log("Old firing rate" + initialFiringRate);
 		initalPosition = transform.position;
 		health = this.GetComponent<HealthScript>();
 		hp = health.hp;
@@ -79,22 +78,14 @@ public class BossScript: MonoBehaviour
 		
 		float timer = 0;
 
-		/*for(int i = 0; i < numberOfRats; i++)
-		{
-			Instantiate(rats[i]);
-		}*/
 		Instantiate (rats [1]);
 		Instantiate (rats [3]);
 
-		//this.transform.position = new Vector3(Screen.width/2, Screen.height/2 , 0);
-
-		Vector2 movement = new Vector2 (-Screen.width, 300);
-		//Vector2 movement = new Vector2 (-1000, 300);
+		Vector2 movement = this.transform.position;
+		movement = new Vector2(movement.x - 1000, movement.y + 300);
 		movement *= Time.deltaTime;
-		Debug.Log (Screen.width/2);
 		
 		transform.Translate (movement);
-		//transform.position = new Vector2(Screen.width/2, 300);
 
 		while (timer < 5){
 			
@@ -120,29 +111,19 @@ public class BossScript: MonoBehaviour
 			weapon.shootingRate = initialFiringRate / 1.5f;
 		}
 
-		//Vector2 movement2 = initalPosition;
-		//movement2 = initalPosition;
-		//movement2 *= Time.deltaTime;
 		transform.position = initalPosition;
-	
-
-		//do this last thing
 	}
 
 	IEnumerator HP1 ()
 	{
 		float timer = 0;
-		
-		//this.transform.position = new Vector3(Screen.width/2, Screen.height/2 , 0);
+
 		foreach(GameObject rat in rats)
 			Instantiate(rat);
 		
-		Vector2 movement = new Vector2 (-Screen.width, 300);
+		Vector2 movement = this.transform.position;
+		movement = new Vector2(movement.x - 1000, movement.y + 300);
 		movement *= Time.deltaTime;
-		//Debug.Log (Screen.width/2);
-		
-		transform.Translate (movement);
-		//transform.position = new Vector2(Screen.width/2, 300);
 		
 		while (timer < 5){
 			
@@ -167,10 +148,7 @@ public class BossScript: MonoBehaviour
 			//Debug.Log("setting to oldfirerate" + oldFiringRate);
 			weapon.shootingRate = initialFiringRate / 3;
 		}
-		
-		//Vector2 movement2 = initalPosition;
-		//movement2 = initalPosition;
-		//movement2 *= Time.deltaTime;
+
 		transform.position = initalPosition;
 	}
 

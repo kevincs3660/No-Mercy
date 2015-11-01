@@ -19,7 +19,8 @@ public class MeleeEnemyScript : MonoBehaviour {
 
 		//rb = GetComponent<Rigidbody2D>();
 		GameObject player = GameObject.Find ("Player");
-		player1 = (PlayerController2)player.GetComponent (typeof(PlayerController2));
+		if(player != null)
+			player1 = (PlayerController2)player.GetComponent (typeof(PlayerController2));
 
 		//GameObject parent = player.transform.parent.gameObject.transform.position.x;
 		//player1 = (PlayerController2)GameObject.Find ("Player");
