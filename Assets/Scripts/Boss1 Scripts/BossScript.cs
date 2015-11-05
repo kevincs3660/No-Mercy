@@ -124,6 +124,8 @@ public class BossScript: MonoBehaviour
 		Vector2 movement = this.transform.position;
 		movement = new Vector2(movement.x - 1000, movement.y + 300);
 		movement *= Time.deltaTime;
+
+		transform.Translate (movement);
 		
 		while (timer < 5){
 			

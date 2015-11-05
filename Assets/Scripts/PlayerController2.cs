@@ -57,8 +57,10 @@ public class PlayerController2 : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if (this.transform.position.y < -50)
-			Destroy (gameObject);
+		if(GetComponent<Renderer>().IsVisibleFrom(Camera.main) == false)
+		{
+			Destroy(gameObject);
+		}
 
 		Vector3 velocity = _controller.velocity;
 		float inputX = Input.GetAxis ("Horizontal");
