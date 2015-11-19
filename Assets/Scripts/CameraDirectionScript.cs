@@ -37,5 +37,6 @@ public class CameraDirectionScript : MonoBehaviour {
 		}
 		script.direction = newDirection;
 		script.speed = cameraSpeed;
+		Destroy (this.gameObject);
 	}
 }
