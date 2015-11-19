@@ -3,18 +3,20 @@ using System.Collections;
 
 public class Boss2Script : MonoBehaviour {
 
-	public GameObject clone1;
-	public GameObject clone2;
+	public GameObject[] clones;
 
 	private WeaponScript[] weapons;
 	private HealthScript health;
 	private bool phase1 = true;
 	private bool phase2 = false;
+	private bool phase3 = false;
 	private bool top = true;
 	private bool bottom = false;
 	private Vector2 movement;
+	private Vector3 originalPosition;
 	private bool topFinished = true;
 	private bool bottomFinished = true;
+	private GameObject player;
 
 	void Awake()
 	{
@@ -25,16 +27,22 @@ public class Boss2Script : MonoBehaviour {
 	void Start () 
 	{
 		health = this.GetComponent<HealthScript>();
+		originalPosition = this.transform.position;
+		player = GameObject.Find("Player");
 		//hp = health.hp;
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
+		if(player == null)
+			weapons[0].enabled = false;
+
 		if(health.hp == 2 && !phase2)
 		{
-			StopCoroutine(driveByTop());
-			StopCoroutine(driveByBottom());
+			//StopCoroutine(driveByTop());
+			//StopCoroutine(driveByBottom());
+			StopAllCoroutines();
 			phase1 = false;
 			top = false;
 			bottom = false;
@@ -42,6 +50,15 @@ public class Boss2Script : MonoBehaviour {
 			bottomFinished = true;
 			StartCoroutine(HP2());
 			phase2 = true;
+		}
+		if(health.hp == 1 && !phase3)
+		{
+			StopAllCoroutines();
+			phase2 = false;
+			top = true;
+			bottom= false;
+			StartCoroutine(HP3 ());
+			phase3 = true;
 		}
 
 		if(!GetComponent<Renderer>().IsVisibleFrom(Camera.main))
@@ -64,15 +81,15 @@ public class Boss2Script : MonoBehaviour {
 		}
 
 		//Vector2 movement = this.transform.position;
-		if(phase1)
+		if(phase1 || phase3)
 		{
 			if(top)
 			{
 				//movement = new Vector2(-15, 0);
 				movement.x = -15f;
 				movement *= Time.deltaTime;
-				
 				transform.Translate (movement);	
+
 				if(topFinished)
 				StartCoroutine(driveByTop());
 
@@ -82,8 +99,8 @@ public class Boss2Script : MonoBehaviour {
 				//movement = new Vector2(15, 0);
 				movement.x = 15f;
 				movement *= Time.deltaTime;
-				
 				transform.Translate (movement);	
+
 				if(bottomFinished)
 				StartCoroutine(driveByBottom());
 			}
@@ -96,7 +113,7 @@ public class Boss2Script : MonoBehaviour {
 		topFinished = false;
 		float timer = 0;
 
-		while (timer < 3)
+		while (timer < 4)
 		{
 			timer += Time.deltaTime;
 
@@ -105,10 +122,13 @@ public class Boss2Script : MonoBehaviour {
 		//movement = new Vector2(movement.x, movement.y -450);
 		if(!phase2)
 		{
-			movement.y -= 450f;
-			movement *= Time.deltaTime;
+			//movement.y -= 440f;
+			//movement *= Time.deltaTime;
 			Debug.Log ("Ended drivebyTop");
-			transform.Translate (movement);	
+			//transform.Translate (movement);
+			Vector2 pos = new Vector2(this.transform.position.x, this.transform.position.y -7.2f);
+			this.transform.position = pos;
+			Debug.Log(this.transform.position);
 		}
 		topFinished = true;
 		top = false;
@@ -119,7 +139,7 @@ public class Boss2Script : MonoBehaviour {
 		bottomFinished = false;
 		float timer = 0;
 		
-		while (timer < 3)
+		while (timer < 4)
 		{
 			timer += Time.deltaTime;
 			
@@ -129,10 +149,12 @@ public class Boss2Script : MonoBehaviour {
 		//movement = new Vector2(movement.x, movement.y +450);
 		if(!phase2)
 		{
-			movement.y += 450f;
-			movement *= Time.deltaTime;
+			//movement.y += 440f;
+			//movement *= Time.deltaTime;
 			Debug.Log ("Ended drivebyBottom");
-			transform.Translate (movement);	
+			Vector2 pos = new Vector2(this.transform.position.x, this.transform.position.y + 7.2f);
+			this.transform.position = pos;
+			Debug.Log(this.transform.position);
 		}
 		bottomFinished = true;
 		top = true;
@@ -143,33 +165,42 @@ public class Boss2Script : MonoBehaviour {
 	IEnumerator HP2 (){
 		
 		float timer = 0;
-		
-		Instantiate (clone1);
-		Instantiate (clone2);
 
-		//Camera camera = GetComponent<Camera>();
-		Vector3 newMovement = Camera.main.ScreenToWorldPoint( new Vector3(Screen.width/2f, Screen.height/2f, Camera.main.nearClipPlane) );
-		Debug.Log (newMovement);
-		/*Vector2 movement = this.transform.position;
-		movement = new Vector2(movement.x - 1000, movement.y + 300);*/
-		//movement = newMovement;
-		//movement = new Vector2(newMovement.x, newMovement.y);
-		movement.x = 2.6f;
-		movement.y = 4.2f;
-		movement *= Time.deltaTime;
+		Instantiate (clones[0]);
+		Instantiate (clones[1]);
+
+		Vector3 newMovement = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, 0);
+
+		//Debug.Log (newMovement);
+		this.transform.position = newMovement;
+		//Debug.Log("Camera position" + newMovement);
+
+		//Debug.Log ("In HP2");
+		while (timer < 4)
+		{
+			timer += Time.deltaTime;
+			
+			//Debug.Log ("Inside while");
+			yield return null;
+		}
+	}
+
+	IEnumerator HP3 (){
 		
-		transform.Translate (movement);
-		Debug.Log ("In HP2");
-		while (timer < 5){
-			
-			//do this thing
-			/*foreach(WeaponScript weapon in weapons)
-			{
-				//oldFiringRate = weapon.shootingRate;
-				//Debug.Log ("Old firing rate" + oldFiringRate);
-				//weapon.shootingRate = initialFiringRate / 3;
-			}*/
-			
+		float timer = 0;
+
+		for(int i = 2; i < clones.Length; i++)
+			Instantiate(clones[i]);
+		
+		//Vector3 newMovement = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, 0);
+		
+		//Debug.Log (newMovement);
+		this.transform.position = originalPosition;
+		//Debug.Log("Camera position" + newMovement);
+		
+		//Debug.Log ("In HP2");
+		while (timer < 5)
+		{
 			timer += Time.deltaTime;
 			
 			//Debug.Log ("Inside while");
@@ -179,11 +210,16 @@ public class Boss2Script : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D collision)
 	{
-		//Debug.Log ("Collision");
 		PlayerController2 player = collision.gameObject.GetComponent<PlayerController2>();
 		if(player != null)
 		{
 			Destroy(player.gameObject);
 		}
+	}
+
+
+	void OnDestroy()
+	{
+		transform.parent.gameObject.AddComponent<GameWinScript>();
 	}
 }

@@ -9,8 +9,15 @@ public class ShotScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () 
 	{
-		Destroy (gameObject, 10);
-	
+		//Destroy (gameObject, 10);
+	}
+
+	void Update()
+	{
+		if(!GetComponent<Renderer>().IsVisibleFrom(Camera.main))
+		{
+			Destroy (gameObject);
+		}
 	}
 
 }

@@ -6,6 +6,12 @@
 /// </summary>
 public class GameOverScript : MonoBehaviour
 {
+	void Update()
+	{
+		if(Input.GetKey (KeyCode.Return) == true)
+			Application.LoadLevel(Application.loadedLevel);
+	}
+
 	void OnGUI()
 	{
 		const int buttonWidth = 120;
