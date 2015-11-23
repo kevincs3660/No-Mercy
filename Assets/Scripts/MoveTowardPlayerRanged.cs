@@ -19,6 +19,22 @@ public class MoveTowardPlayerRanged : MonoBehaviour {
 
 		if(player1 != null)
 			direction = (player1.transform.position - this.transform.position).normalized;
+
+		/*
+		Vector2 moveDirection = (player1.transform.position - this.transform.position).normalized; 
+		Debug.Log ("moveDirection: " + moveDirection);
+		Debug.Log ("Direction: " + direction);
+		if (moveDirection != Vector2.zero) 
+		{
+			float angle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;
+			transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+		}
+		*/
+		//transform.Rotate(Vector3.down * Time.deltaTime);
+		//Vector3 moveDirection = (player1.transform.position.normalized);
+
+		//float angle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;
+		//transform.rotation = Quaternion.LookRotation(Vector3.forward, moveDirection-this.transform.position);
 	}
 	
 	// Update is called once per frame
@@ -27,7 +43,7 @@ public class MoveTowardPlayerRanged : MonoBehaviour {
 
 		movement = new Vector2 (speed.x * direction.x, speed.y * direction.y);
 		movement *= Time.deltaTime;
-		
+
 		transform.Translate (movement);
 
 	}

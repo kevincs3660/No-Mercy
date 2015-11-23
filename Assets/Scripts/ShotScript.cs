@@ -6,10 +6,12 @@ public class ShotScript : MonoBehaviour {
 	public int damage = 1;
 	public bool isEnemyShot = false;
 
+	private Vector3 _origPos;
+
 	// Use this for initialization
 	void Start () 
 	{
-		//Destroy (gameObject, 10);
+		_origPos = this.transform.position;
 	}
 
 	void Update()
@@ -18,6 +20,7 @@ public class ShotScript : MonoBehaviour {
 		{
 			Destroy (gameObject);
 		}
-	}
 
+	}
+	
 }
