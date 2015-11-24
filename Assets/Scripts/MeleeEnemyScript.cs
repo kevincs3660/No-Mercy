@@ -7,7 +7,6 @@ public class MeleeEnemyScript : MonoBehaviour {
 	private float playery;
 	private PlayerController2 player1;
 	private bool hasSpawn;
-	private Animator animator; 
 	
 	public Vector2 speed = new Vector2(1, 0);
 	public int damage = 1;
@@ -23,7 +22,6 @@ public class MeleeEnemyScript : MonoBehaviour {
 		if(player != null)
 			player1 = (PlayerController2)player.GetComponent (typeof(PlayerController2));
 
-		animator = this.GetComponent<Animator> ();
 		//GameObject parent = player.transform.parent.gameObject.transform.position.x;
 		//player1 = (PlayerController2)GameObject.Find ("Player");
 		//player x = transform.Find("Player").GetComponent.
@@ -32,6 +30,34 @@ public class MeleeEnemyScript : MonoBehaviour {
 		//Debug.Log ("Transform parent x: " + player.transform.parent.gameObject.transform.position.x + " Tranform parent y: " + player.transform.parent.gameObject.transform.position.y);
 	}
 
+	/*
+	// Update is called once per frame
+	void Update () {
+		if (hasSpawn == false)
+		{
+			if (GetComponent<Renderer>().IsVisibleFrom(Camera.main))
+			{
+				Spawn();
+			}
+		}
+		else
+		{
+			if(player1 != null)
+				direction = (player1.transform.position - this.transform.position).normalized;
+			movement = new Vector2 (speed.x * direction.x, speed.y * direction.y);
+			movement *= Time.deltaTime;
+
+			rb.MovePosition(movement);
+			transform.Translate (movement);
+			// 4 - Out of the camera ? Destroy the game object.
+			if (GetComponent<Renderer>().IsVisibleFrom(Camera.main) == false)
+			{
+				Destroy(gameObject);
+			}
+		}
+
+		
+	}*/
 
 	void FixedUpdate()
 	{
@@ -48,22 +74,9 @@ public class MeleeEnemyScript : MonoBehaviour {
 				direction = (player1.transform.position - this.transform.position).normalized;
 			movement = new Vector2 (speed.x * direction.x, speed.y * direction.y);
 			movement *= Time.deltaTime;
-
-
 			
 			//rb.MovePosition(movement);
 			transform.Translate (movement);
-
-			Debug.Log (movement.x);
-			if (movement.x > 0)
-			{
-				animator.SetInteger("Direction", 1);
-			}
-			else if (movement.x < 0)
-			{
-				animator.SetInteger("Direction", 0);
-			}
-
 			// 4 - Out of the camera ? Destroy the game object.
 			if (GetComponent<Renderer>().IsVisibleFrom(Camera.main) == false)
 			{
