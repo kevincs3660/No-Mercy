@@ -8,7 +8,7 @@ public class MenuScript : MonoBehaviour
 {
 	void OnMouseDown()
 	{
-		Application.LoadLevel("Level1");
+		Application.LoadLevel("Intro Level");
 	}
 
 }
