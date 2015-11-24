@@ -96,7 +96,7 @@ public class PlayerController2 : MonoBehaviour {
 
 
 			if (inputX < 0) {
-				Debug.Log("IN IDLE: Input is: " + inputX + " changing to face LEFT");
+				//Debug.Log("IN IDLE: Input is: " + inputX + " changing to face LEFT");
 				velocity.x = -speed;
 				animator.enabled = true;
 				animator.SetInteger("Direction", 0);
@@ -106,7 +106,7 @@ public class PlayerController2 : MonoBehaviour {
 				//gameObject.GetComponent<SpriteRenderer>().sprite = facingLeftImage;
 				//shotDirection = -transform.right;
 			} else if (inputX > 0) {
-				Debug.Log("IN IDLE: Input is: " + inputX + " changing to face RIGHT");
+				//Debug.Log("IN IDLE: Input is: " + inputX + " changing to face RIGHT");
 				velocity.x = speed;
 				animator.enabled = true;
 				animator.SetInteger("Direction", 1);
@@ -118,7 +118,7 @@ public class PlayerController2 : MonoBehaviour {
 			}
 			else
 			{
-				Debug.Log("STopping playback");
+				//Debug.Log("STopping playback");
 
 				//animator.SetInteger("Direction", 2);
 				animator.enabled = false;
@@ -188,7 +188,7 @@ public class PlayerController2 : MonoBehaviour {
 				velocity.x = 0;
 			
 			if (inputX < 0) {
-				Debug.Log("Input is: " + inputX + " changing to face LEFT");
+				//Debug.Log("Input is: " + inputX + " changing to face LEFT");
 				velocity.x = -speed;
 				//animator.StopPlayback();
 				animator.SetInteger("Direction", 0);
@@ -196,7 +196,7 @@ public class PlayerController2 : MonoBehaviour {
 				//gameObject.GetComponent<SpriteRenderer>().sprite = facingLeftImage;
 				//shotDirection = -transform.right;
 			} else if (inputX > 0) {
-				Debug.Log("Input is: " + inputX + " changing to face RIGHT");
+				//Debug.Log("Input is: " + inputX + " changing to face RIGHT");
 				velocity.x = speed;
 				facingRight = true;
 				//animator.StopPlayback();
@@ -376,8 +376,9 @@ public class PlayerController2 : MonoBehaviour {
 
 		if(invincible != null)
 		{
+			Debug.Log("Collision with invincible");
 			AudioSource.PlayClipAtPoint (invincibleSound, transform.position, 0.5f);
-			HealthScript playerhealth = this.GetComponent<HealthScript>();
+			PlayerHealthScript playerhealth = this.GetComponent<PlayerHealthScript>();
 			playerhealth.hp = 2000;
 			StartCoroutine(invincibilityRoutine(invincible.timeLength, playerhealth));
 			Destroy(invincible.gameObject);
@@ -418,7 +419,7 @@ public class PlayerController2 : MonoBehaviour {
 		// Damage the player
 		if (damagePlayer)
 		{
-			HealthScript playerHealth = this.GetComponent<HealthScript>();
+			PlayerHealthScript playerHealth = this.GetComponent<PlayerHealthScript>();
 			if (playerHealth != null) 
 				playerHealth.Damage(1);
 		}
@@ -449,7 +450,7 @@ public class PlayerController2 : MonoBehaviour {
 
 	}
 
-	IEnumerator invincibilityRoutine(float timelength, HealthScript playerhealth)
+	IEnumerator invincibilityRoutine(float timelength, PlayerHealthScript playerhealth)
 	{
 		float timer = 0;
 

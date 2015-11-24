@@ -156,7 +156,9 @@ public class BossScript: MonoBehaviour
 
 	void OnDestroy()
 	{
-		transform.parent.gameObject.AddComponent<GameWinScript>();
+		// for now just move to level 2
+		Application.LoadLevel ("Level2_A");
+		//transform.parent.gameObject.AddComponent<GameWinScript>();
 		//GameObject player = GameObject.Find ("Player");
 		//if(player != null)
 		//	StartCoroutine(bossDead());
