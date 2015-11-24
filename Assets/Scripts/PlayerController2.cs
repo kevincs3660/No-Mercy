@@ -11,6 +11,11 @@ public class PlayerController2 : MonoBehaviour {
 	public int rapidFireTimer = 100;
 	public Sprite facingLeftImage;
 	public Sprite facingRightImage;
+	public AudioClip ratCollisionSound;
+	public AudioClip invincibleSound;
+	public AudioClip rapidFireSound;
+	public AudioClip meleeAttack;
+	public AudioClip deathSound;
 
 	private CharacterController2D _controller;
 	private WeaponScript[] _weapons;
@@ -105,6 +110,7 @@ public class PlayerController2 : MonoBehaviour {
 			}
 
 			if (Input.GetKeyDown (KeyCode.DownArrow) == true) {
+				AudioSource.PlayClipAtPoint (meleeAttack, transform.position, 0.5f);
 				if (_weapons[2] != null && _weapons[3] != null)
 					if(facingRight)
 						_weapons[2].Attack(false);
@@ -334,6 +340,7 @@ public class PlayerController2 : MonoBehaviour {
 
 		if(invincible != null)
 		{
+			AudioSource.PlayClipAtPoint (invincibleSound, transform.position, 0.5f);
 			HealthScript playerhealth = this.GetComponent<HealthScript>();
 			playerhealth.hp = 2000;
 			StartCoroutine(invincibilityRoutine(invincible.timeLength, playerhealth));
@@ -342,6 +349,7 @@ public class PlayerController2 : MonoBehaviour {
 		// Rapid fire upgrade checking 
 		if(rapid != null)
 		{
+			AudioSource.PlayClipAtPoint (rapidFireSound, transform.position, 0.5f);
 			//rapidFire = true; 
 			foreach(WeaponScript weapon in _weapons)
 			{
@@ -362,6 +370,7 @@ public class PlayerController2 : MonoBehaviour {
 
 		if (enemy != null)
 		{
+			AudioSource.PlayClipAtPoint(ratCollisionSound, transform.position, 0.3f);
 			// Kill the enemy
 			//HealthScript enemyHealth = enemy.GetComponent<HealthScript>(); // took this out for some reason
 			//if (enemyHealth != null) 
@@ -420,6 +429,7 @@ public class PlayerController2 : MonoBehaviour {
 
 	void OnDestroy()
 	{
+		AudioSource.PlayClipAtPoint(deathSound, transform.position, 0.3f);
 		// Game Over.
 		// Add the script to the parent because the current game
 		// object is likely going to be destroyed immediately.
