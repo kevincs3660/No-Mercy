@@ -15,7 +15,7 @@ public class PlayerController2 : MonoBehaviour {
 	public AudioClip invincibleSound;
 	public AudioClip rapidFireSound;
 	public AudioClip meleeAttack;
-	public AudioClip deathSound;
+
 
 	private CharacterController2D _controller;
 	private WeaponScript[] _weapons;
@@ -30,6 +30,7 @@ public class PlayerController2 : MonoBehaviour {
 	private int dashCooldown = 50;
 	private int dashCooldownCounter;
 	private bool dashing;
+	private Animator animator;
 	//private bool rapidFire = false;
 	enum characterStates
 	{
@@ -57,6 +58,8 @@ public class PlayerController2 : MonoBehaviour {
 
 	void Start () {
 		_controller = gameObject.GetComponent<CharacterController2D> ();
+		animator = this.GetComponent<Animator>();
+		//animator.SetInteger ("Direction", 0);
 	}
 	
 	// Update is called once per frame
@@ -64,7 +67,9 @@ public class PlayerController2 : MonoBehaviour {
 
 		if(GetComponent<Renderer>().IsVisibleFrom(Camera.main) == false)
 		{
-			Destroy(gameObject);
+			PlayerHealthScript health = this.GetComponent<PlayerHealthScript>();
+			health.Damage(1000);
+			//Destroy(gameObject);
 		}
 
 		Vector3 velocity = _controller.velocity;
@@ -86,20 +91,41 @@ public class PlayerController2 : MonoBehaviour {
 				if(dashCounter < dashTime)
 					dashCounter+= 0.5f;
 
+
 			velocity.x = 0;
 
+
 			if (inputX < 0) {
+				Debug.Log("IN IDLE: Input is: " + inputX + " changing to face LEFT");
 				velocity.x = -speed;
+				animator.enabled = true;
+				animator.SetInteger("Direction", 0);
 				facingRight = false;
 				state = characterStates.RUNNING;
-				gameObject.GetComponent<SpriteRenderer>().sprite = facingLeftImage;
+				//animator.StopPlayback();
+				//gameObject.GetComponent<SpriteRenderer>().sprite = facingLeftImage;
 				//shotDirection = -transform.right;
 			} else if (inputX > 0) {
+				Debug.Log("IN IDLE: Input is: " + inputX + " changing to face RIGHT");
 				velocity.x = speed;
+				animator.enabled = true;
+				animator.SetInteger("Direction", 1);
 				facingRight = true;
 				state = characterStates.RUNNING;
-				gameObject.GetComponent<SpriteRenderer>().sprite = facingRightImage;
+				//animator.StopPlayback();
+				//gameObject.GetComponent<SpriteRenderer>().sprite = facingRightImage;
 				//shotDirection = transform.right;
+			}
+			else
+			{
+				Debug.Log("STopping playback");
+
+				//animator.SetInteger("Direction", 2);
+				animator.enabled = false;
+				if(facingRight)
+					gameObject.GetComponent<SpriteRenderer>().sprite = facingRightImage;
+				else
+					gameObject.GetComponent<SpriteRenderer>().sprite = facingLeftImage;
 			}
 
 
@@ -162,14 +188,20 @@ public class PlayerController2 : MonoBehaviour {
 				velocity.x = 0;
 			
 			if (inputX < 0) {
+				Debug.Log("Input is: " + inputX + " changing to face LEFT");
 				velocity.x = -speed;
+				//animator.StopPlayback();
+				animator.SetInteger("Direction", 0);
 				facingRight = false;
-				gameObject.GetComponent<SpriteRenderer>().sprite = facingLeftImage;
+				//gameObject.GetComponent<SpriteRenderer>().sprite = facingLeftImage;
 				//shotDirection = -transform.right;
 			} else if (inputX > 0) {
+				Debug.Log("Input is: " + inputX + " changing to face RIGHT");
 				velocity.x = speed;
 				facingRight = true;
-				gameObject.GetComponent<SpriteRenderer>().sprite = facingRightImage;
+				//animator.StopPlayback();
+				animator.SetInteger("Direction", 1);
+				//gameObject.GetComponent<SpriteRenderer>().sprite = facingRightImage;
 				//shotDirection = transform.right;
 			}
 			else
@@ -242,13 +274,17 @@ public class PlayerController2 : MonoBehaviour {
 			// movement
 			if (inputX < 0) {
 				velocity.x = -speed * 1f;
+				animator.SetInteger("Direction", 0);
 				facingRight = false;
-				gameObject.GetComponent<SpriteRenderer>().sprite = facingLeftImage;
+				//animator.SetInteger("Direction", 1);
+				//gameObject.GetComponent<SpriteRenderer>().sprite = facingLeftImage;
 				//shotDirection = -transform.right;
 			} else if (inputX > 0) {
 				velocity.x = speed * 1f;
+				animator.SetInteger("Direction", 1);
 				facingRight = true;
-				gameObject.GetComponent<SpriteRenderer>().sprite = facingRightImage;
+				//animator.SetInteger("Direction", 0);
+				//gameObject.GetComponent<SpriteRenderer>().sprite = facingRightImage;
 				//shotDirection = transform.right;
 			}
 			else
@@ -429,7 +465,7 @@ public class PlayerController2 : MonoBehaviour {
 
 	void OnDestroy()
 	{
-		AudioSource.PlayClipAtPoint(deathSound, transform.position, 0.3f);
+
 		// Game Over.
 		// Add the script to the parent because the current game
 		// object is likely going to be destroyed immediately.

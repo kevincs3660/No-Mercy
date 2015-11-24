@@ -16,6 +16,7 @@ public class PlayerHealthScript : MonoBehaviour
 	/// Enemy or player?
 	/// </summary>
 	public bool isEnemy = true;
+	public AudioClip deathSound;
 	
 	/// <summary>
 	/// Inflicts damage and check if the object should be destroyed
@@ -27,6 +28,7 @@ public class PlayerHealthScript : MonoBehaviour
 		
 		if (hp <= 0)
 		{
+			AudioSource.PlayClipAtPoint(deathSound, transform.position, 0.3f);
 			// Dead!
 			Destroy(gameObject);
 		}
