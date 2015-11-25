@@ -46,7 +46,8 @@ public class BossScript: MonoBehaviour
 	{
 		hp = health.hp;
 		//Debug.Log("HP is" + hp);
-
+		//if (hp == 0)
+		//	Application.LoadLevel ("Level2_A");
 		if(hp == 2 && !hp2phase)
 		{
 			Debug.Log ("Starting Coroutine");
@@ -157,7 +158,7 @@ public class BossScript: MonoBehaviour
 	void OnDestroy()
 	{
 		// for now just move to level 2
-		Application.LoadLevel ("Level2_A");
+		//Application.LoadLevel ("Level2_A");
 		//transform.parent.gameObject.AddComponent<GameWinScript>();
 		//GameObject player = GameObject.Find ("Player");
 		//if(player != null)
