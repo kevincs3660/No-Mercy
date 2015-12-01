@@ -17,6 +17,7 @@ public class PlayerController2 : MonoBehaviour {
 	public AudioClip meleeAttack;
 
 
+
 	private CharacterController2D _controller;
 	private WeaponScript[] _weapons;
 	private bool facingRight = true;
@@ -26,9 +27,9 @@ public class PlayerController2 : MonoBehaviour {
 	private int meleeTimerReset;
 	private int dashTime = 20;
 	private bool dashEnabled = true;
-	private float dashCounter;
+	public float dashCounter;
 	private int dashCooldown = 50;
-	private int dashCooldownCounter;
+	public  int dashCooldownCounter;
 	private bool dashing;
 	private Animator animator;
 	//private bool rapidFire = false;
@@ -377,9 +378,11 @@ public class PlayerController2 : MonoBehaviour {
 		if(invincible != null)
 		{
 			Debug.Log("Collision with invincible");
+
 			AudioSource.PlayClipAtPoint (invincibleSound, transform.position, 0.5f);
 			PlayerHealthScript playerhealth = this.GetComponent<PlayerHealthScript>();
 			playerhealth.hp = 2000;
+			StartCoroutine(invincibleIndicator(invincible.timeLength));
 			StartCoroutine(invincibilityRoutine(invincible.timeLength, playerhealth));
 			Destroy(invincible.gameObject);
 		}
@@ -462,6 +465,40 @@ public class PlayerController2 : MonoBehaviour {
 
 		playerhealth.hp = 1;
 
+	}
+
+	IEnumerator invincibleIndicator(float timeLength)
+	{
+		float timer = 0;
+		bool thing = true;
+
+		Debug.Log("Doing THE THING");
+		while (timer < timeLength)
+		{
+			if(thing)
+			{
+				thing = false;
+				Debug.Log("Entering even number thing" );
+				gameObject.GetComponent<SpriteRenderer>().color = new Color(1f,1f,1f,0.5f);
+			}
+			else
+			{
+				thing = true;
+				Debug.Log("Entering odd number thing");
+				gameObject.GetComponent<SpriteRenderer>().color = new Color(1f,1f,1f,1f);
+			}
+
+			timer += Time.deltaTime;
+			yield return null;
+		}
+
+		gameObject.GetComponent<SpriteRenderer>().color = new Color(1f,1f,1f,1f);
+
+	}
+
+	public float getDashCounter()
+	{
+		return dashCounter;
 	}
 
 	void OnDestroy()

@@ -37,7 +37,7 @@ public class PlayerHealthScript : MonoBehaviour
 	void OnTriggerEnter2D(Collider2D otherCollider)
 	{
 		// Is this a shot?
-		Debug.Log ("COLLISION");
+		//Debug.Log ("COLLISION");
 		ShotScript shot = otherCollider.gameObject.GetComponent<ShotScript>();
 		
 		if (shot != null)
