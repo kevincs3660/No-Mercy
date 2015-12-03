@@ -17,6 +17,7 @@ public class PlayerHealthScript : MonoBehaviour
 	/// </summary>
 	public bool isEnemy = true;
 	public AudioClip deathSound;
+	public GameObject bloodsplatter;
 	
 	/// <summary>
 	/// Inflicts damage and check if the object should be destroyed
@@ -28,6 +29,9 @@ public class PlayerHealthScript : MonoBehaviour
 		
 		if (hp <= 0)
 		{
+			GameObject playerGeneric = GameObject.Find ("Player");
+			PlayerController2 player = playerGeneric.gameObject.GetComponent<PlayerController2>();
+			Instantiate(bloodsplatter, player.transform.position, Quaternion.identity);
 			AudioSource.PlayClipAtPoint(deathSound, transform.position, 0.3f);
 			// Dead!
 			Destroy(gameObject);

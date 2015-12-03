@@ -15,6 +15,7 @@ public class PlayerController2 : MonoBehaviour {
 	public AudioClip invincibleSound;
 	public AudioClip rapidFireSound;
 	public AudioClip meleeAttack;
+	//public GameObject bloodSplatter;
 
 
 
@@ -503,7 +504,7 @@ public class PlayerController2 : MonoBehaviour {
 
 	void OnDestroy()
 	{
-
+		//Instantiate(bloodSplatter, this.gameObject.transform.position, Quaternion.identity);
 		// Game Over.
 		// Add the script to the parent because the current game
 		// object is likely going to be destroyed immediately.
