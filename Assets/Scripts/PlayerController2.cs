@@ -479,13 +479,13 @@ public class PlayerController2 : MonoBehaviour {
 			if(thing)
 			{
 				thing = false;
-				Debug.Log("Entering even number thing" );
+				//Debug.Log("Entering even number thing" );
 				gameObject.GetComponent<SpriteRenderer>().color = new Color(1f,1f,1f,0.5f);
 			}
 			else
 			{
 				thing = true;
-				Debug.Log("Entering odd number thing");
+				//Debug.Log("Entering odd number thing");
 				gameObject.GetComponent<SpriteRenderer>().color = new Color(1f,1f,1f,1f);
 			}
 
