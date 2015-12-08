@@ -7,11 +7,19 @@ public class RangedEnemyScript : MonoBehaviour
 {
 	private bool hasSpawn;
 	private WeaponScript[] weapons;
+	public Sprite facingLeftImage;
+	public Sprite facingRightImage;
+	private PlayerController2 player1;
+	private Vector2 direction;
+	private Vector2 movement;
 	
 	void Awake()
 	{
 		// Retrieve the weapon only once
 		weapons = GetComponentsInChildren<WeaponScript>();
+		GameObject player = GameObject.Find ("Player");
+		if(player != null)
+			player1 = player.GetComponent<PlayerController2>();
 		
 		// Retrieve scripts to disable when not spawn
 	}
@@ -45,6 +53,15 @@ public class RangedEnemyScript : MonoBehaviour
 		}
 		else
 		{
+			if(player1 != null)
+				direction = (player1.transform.position - this.transform.position).normalized;
+			movement = new Vector2 (direction.x, direction.y);
+			movement *= Time.deltaTime;
+			
+			if(movement.x > 0)
+				this.GetComponent<SpriteRenderer>().sprite = facingRightImage;
+			else if(movement.x < 0)
+				this.GetComponent<SpriteRenderer>().sprite = facingLeftImage;
 			// Auto-fire
 			foreach (WeaponScript weapon in weapons)
 			{

@@ -11,6 +11,8 @@ public class PlayerController2 : MonoBehaviour {
 	public int rapidFireTimer = 100;
 	public Sprite facingLeftImage;
 	public Sprite facingRightImage;
+	public Sprite jumpingLeftImage;
+	public Sprite jumpingRightImage;
 	public AudioClip ratCollisionSound;
 	public AudioClip invincibleSound;
 	public AudioClip rapidFireSound;
@@ -133,6 +135,11 @@ public class PlayerController2 : MonoBehaviour {
 
 			if (Input.GetAxis ("Jump") > 0 && _controller.isGrounded) 
 			{	
+				animator.enabled = false;
+				if(facingRight)
+					gameObject.GetComponent<SpriteRenderer>().sprite = jumpingRightImage;
+				else
+					gameObject.GetComponent<SpriteRenderer>().sprite = jumpingLeftImage;
 				state = characterStates.JUMPING;
 				velocity.y = Mathf.Sqrt (2f * jumpHeight * -gravity);
 			}
@@ -212,6 +219,8 @@ public class PlayerController2 : MonoBehaviour {
 			if (Input.GetKey (KeyCode.LeftShift) == true && dashEnabled) {
 				if (inputX < 0)
 				{
+	
+			
 					velocity.x = -speed * 2;
 					dashCounter--;
 					if(dashCounter <= 0)
@@ -228,6 +237,11 @@ public class PlayerController2 : MonoBehaviour {
 			}
 			
 			if (Input.GetAxis ("Jump") > 0 && _controller.isGrounded) {
+				animator.enabled = false;
+				if(facingRight)
+					gameObject.GetComponent<SpriteRenderer>().sprite = jumpingRightImage;
+				else
+					gameObject.GetComponent<SpriteRenderer>().sprite = jumpingLeftImage;
 				state = characterStates.JUMPING;
 				velocity.y = Mathf.Sqrt (2f * jumpHeight * -gravity);
 			}
@@ -275,6 +289,7 @@ public class PlayerController2 : MonoBehaviour {
 
 			// movement
 			if (inputX < 0) {
+				gameObject.GetComponent<SpriteRenderer>().sprite = jumpingLeftImage;
 				velocity.x = -speed * 1f;
 				animator.SetInteger("Direction", 0);
 				facingRight = false;
@@ -282,6 +297,7 @@ public class PlayerController2 : MonoBehaviour {
 				//gameObject.GetComponent<SpriteRenderer>().sprite = facingLeftImage;
 				//shotDirection = -transform.right;
 			} else if (inputX > 0) {
+				gameObject.GetComponent<SpriteRenderer>().sprite = jumpingRightImage;
 				velocity.x = speed * 1f;
 				animator.SetInteger("Direction", 1);
 				facingRight = true;
