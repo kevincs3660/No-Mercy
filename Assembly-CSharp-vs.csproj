@@ -46,9 +46,11 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\Boss1 Scripts\BossDead.cs" />
+     <Compile Include="Assets\Scripts\Boss1 Scripts\BossDead1.cs" />
      <Compile Include="Assets\Scripts\Boss1 Scripts\BossScript.cs" />
      <Compile Include="Assets\Scripts\Boss2\Boss2Script.cs" />
+     <Compile Include="Assets\Scripts\Boss2\BossDead2.cs" />
+     <Compile Include="Assets\Scripts\Boss3\Boss3Script.cs" />
      <Compile Include="Assets\Scripts\CameraDirectionScript.cs" />
      <Compile Include="Assets\Scripts\CameraFollow2D.cs" />
      <Compile Include="Assets\Scripts\CharacterController2D.cs" />

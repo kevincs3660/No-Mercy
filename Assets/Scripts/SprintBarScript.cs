@@ -32,9 +32,9 @@ public class SprintBarScript : MonoBehaviour {
 		size.x = Screen.width/10;
 		size.y = Screen.height/8;
 		
-		if(size.x < 100)
-			size.x = 100;
-		Debug.Log (size.x);
+		if(size.x < 125)
+			size.x = 125;
+		//Debug.Log (size.x);
 		//Debug.Log("Size.x" + size.x);
 		// draw the background:
 		GUI.BeginGroup (new Rect (pos.x, pos.y, size.x, size.y));

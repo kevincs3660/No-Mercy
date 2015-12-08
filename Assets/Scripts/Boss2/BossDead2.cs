@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BossDead : MonoBehaviour {
-
+public class BossDead2 : MonoBehaviour {
+	
 	private GameObject boss;
-
+	
 	// Use this for initialization
 	void Start () {
 		boss = GameObject.Find ("Boss");
@@ -16,7 +16,7 @@ public class BossDead : MonoBehaviour {
 		if (boss == null)
 			StartCoroutine (nextLevel ());
 	}
-
+	
 	IEnumerator nextLevel (){
 		
 		float timer = 0;
@@ -29,7 +29,7 @@ public class BossDead : MonoBehaviour {
 			yield return null;
 			
 		}
-		Application.LoadLevel ("Level2_A");
+		Application.LoadLevel ("Level3_A");
 		//do this last thing
 		
 	}
