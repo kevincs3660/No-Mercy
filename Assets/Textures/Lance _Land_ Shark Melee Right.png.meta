@@ -1,5 +1,4 @@
 fileFormatVersion: 2
-<<<<<<< Updated upstream
 guid: aaaab5c9580cd4a4ca244348e40e034c
 timeCreated: 1449613253
 licenseType: Free
@@ -21,13 +20,6 @@ TextureImporter:
     21300026: Lance _Land_ Shark Melee Right_13
     21300028: Lance _Land_ Shark Melee Right_14
     21300030: Lance _Land_ Shark Melee Right_15
-=======
-guid: 3a306da31187447258ff479762d53946
-timeCreated: 1449604358
-licenseType: Free
-TextureImporter:
-  fileIDToRecycleName: {}
->>>>>>> Stashed changes
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -54,22 +46,14 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     filterMode: -1
-<<<<<<< Updated upstream
     aniso: 16
-=======
-    aniso: -1
->>>>>>> Stashed changes
     mipBias: -1
     wrapMode: 1
   nPOTScale: 0
   lightmap: 0
   rGBM: 0
   compressionQuality: 50
-<<<<<<< Updated upstream
   spriteMode: 2
-=======
-  spriteMode: 1
->>>>>>> Stashed changes
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -80,7 +64,6 @@ TextureImporter:
   textureType: 8
   buildTargetSettings: []
   spriteSheet:
-<<<<<<< Updated upstream
     sprites:
     - name: Lance _Land_ Shark Melee Right_0
       rect:
@@ -242,9 +225,6 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-=======
-    sprites: []
->>>>>>> Stashed changes
   spritePackingTag: 
   userData: 
   assetBundleName: 
