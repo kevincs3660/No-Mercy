@@ -12,9 +12,14 @@ public class RangedEnemyScript : MonoBehaviour
 	private PlayerController2 player1;
 	private Vector2 direction;
 	private Vector2 movement;
+	private bool dead = false;
+	private bool facingRight;
+	private Animator animator;
 	
 	void Awake()
 	{
+		animator = this.gameObject.GetComponent<Animator> ();
+		animator.enabled = false;
 		// Retrieve the weapon only once
 		weapons = GetComponentsInChildren<WeaponScript>();
 		GameObject player = GameObject.Find ("Player");
@@ -53,21 +58,30 @@ public class RangedEnemyScript : MonoBehaviour
 		}
 		else
 		{
-			if(player1 != null)
-				direction = (player1.transform.position - this.transform.position).normalized;
-			movement = new Vector2 (direction.x, direction.y);
-			movement *= Time.deltaTime;
-			
-			if(movement.x > 0)
-				this.GetComponent<SpriteRenderer>().sprite = facingRightImage;
-			else if(movement.x < 0)
-				this.GetComponent<SpriteRenderer>().sprite = facingLeftImage;
-			// Auto-fire
-			foreach (WeaponScript weapon in weapons)
+			if(!dead)
 			{
-				if (weapon != null && weapon.enabled && weapon.CanAttack)
+				if(player1 != null)
+					direction = (player1.transform.position - this.transform.position).normalized;
+				movement = new Vector2 (direction.x, direction.y);
+				movement *= Time.deltaTime;
+				
+				if(movement.x > 0)
 				{
-					weapon.Attack(true);
+					facingRight = true;
+					this.GetComponent<SpriteRenderer>().sprite = facingRightImage;
+				}
+				else if(movement.x < 0)
+				{
+					facingRight = false;
+					this.GetComponent<SpriteRenderer>().sprite = facingLeftImage;
+				}
+				// Auto-fire
+				foreach (WeaponScript weapon in weapons)
+				{
+					if (weapon != null && weapon.enabled && weapon.CanAttack)
+					{
+						weapon.Attack(true);
+					}
 				}
 			}
 			
@@ -94,5 +108,19 @@ public class RangedEnemyScript : MonoBehaviour
 		{
 			weapon.enabled = true;
 		}
+	}
+
+	void deadNow()
+	{
+		//Destroy (this.gameObject.GetComponent<Rigidbody2D> ());
+		Destroy (this.gameObject.GetComponent<BoxCollider2D> ());
+		Destroy (gameObject, 0.6f);
+		animator.enabled = true;
+		if(facingRight)
+			animator.Play ("Dead Fox Right_");
+		else
+			animator.Play ("Dead Fox Left_");
+		dead = true;
+		Destroy (gameObject, 1);
 	}
 }

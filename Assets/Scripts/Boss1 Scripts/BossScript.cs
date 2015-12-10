@@ -23,6 +23,7 @@ public class BossScript: MonoBehaviour
 	private int hp; 
 	private bool hp2phase = false;
 	private bool hp1phase = false;
+	public GameObject bloodsplatter;
 	
 	void Awake()
 	{
@@ -50,7 +51,7 @@ public class BossScript: MonoBehaviour
 		//	Application.LoadLevel ("Level2_A");
 		if(hp == 2 && !hp2phase)
 		{
-			Debug.Log ("Starting Coroutine");
+			//Debug.Log ("Starting Coroutine");
 			StartCoroutine(HP2());
 			hp2phase = true;
 		}
@@ -79,6 +80,7 @@ public class BossScript: MonoBehaviour
 		
 		float timer = 0;
 
+		Instantiate(bloodsplatter, initalPosition, Quaternion.identity);
 		Instantiate (rats [1]);
 		Instantiate (rats [3]);
 
@@ -118,7 +120,7 @@ public class BossScript: MonoBehaviour
 	IEnumerator HP1 ()
 	{
 		float timer = 0;
-
+		Instantiate(bloodsplatter, initalPosition, Quaternion.identity);
 		foreach(GameObject rat in rats)
 			Instantiate(rat);
 		
@@ -165,6 +167,8 @@ public class BossScript: MonoBehaviour
 		//	StartCoroutine(bossDead());
 			//Application.LoadLevel("MainMenu");
 	}
+
+
 	/*
 	IEnumerator bossDead()
 	{

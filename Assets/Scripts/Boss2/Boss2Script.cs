@@ -17,9 +17,16 @@ public class Boss2Script : MonoBehaviour {
 	private bool topFinished = true;
 	private bool bottomFinished = true;
 	private GameObject player;
+	private Animator animator;
+	private bool facingRight;
+	private Vector2 direction;
+	public Sprite facingRightImage;
+	public Sprite facingLeftImage;
 
 	void Awake()
 	{
+		animator = this.gameObject.GetComponent<Animator> ();
+		animator.enabled = false;
 		weapons = GetComponentsInChildren<WeaponScript>();
 	}
 
@@ -37,6 +44,22 @@ public class Boss2Script : MonoBehaviour {
 	{
 		if(player == null)
 			weapons[0].enabled = false;
+
+		if(player != null)
+			direction = (player.transform.position - this.transform.position).normalized;
+		movement = new Vector2 (direction.x, direction.y);
+		movement *= Time.deltaTime;
+		
+		if(movement.x > 0)
+		{
+			facingRight = true;
+			this.GetComponent<SpriteRenderer>().sprite = facingRightImage;
+		}
+		else if(movement.x < 0)
+		{
+			facingRight = false;
+			this.GetComponent<SpriteRenderer>().sprite = facingLeftImage;
+		}
 
 		if(health.hp == 2 && !phase2)
 		{
@@ -217,9 +240,23 @@ public class Boss2Script : MonoBehaviour {
 		}
 	}
 
+	void deadNow()
+	{
+		//Destroy (this.gameObject.GetComponent<Rigidbody2D> ());
+		Destroy (this.gameObject.GetComponent<BoxCollider2D> ());
+		Destroy (gameObject, 0.6f);
+		animator.enabled = true;
+		if(facingRight)
+			animator.Play ("Dead Fox Right_");
+		else
+			animator.Play ("Dead Fox Left_");
+		//dead = true;
+		Destroy (gameObject, 1);
+	}
+
 
 	void OnDestroy()
 	{
-		transform.parent.gameObject.AddComponent<GameWinScript>();
+		//transform.parent.gameObject.AddComponent<GameWinScript>();
 	}
 }

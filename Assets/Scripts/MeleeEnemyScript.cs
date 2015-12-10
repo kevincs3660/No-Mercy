@@ -8,6 +8,8 @@ public class MeleeEnemyScript : MonoBehaviour {
 	private PlayerController2 player1;
 	private bool hasSpawn;
 	private Animator animator;
+	private bool dead = false;
+	private bool facingRight;
 
 	
 	public Vector2 speed = new Vector2(1, 0);
@@ -46,18 +48,33 @@ public class MeleeEnemyScript : MonoBehaviour {
 		}
 		else
 		{
+			if(!dead)
+			{
 			if(player1 != null)
 				direction = (player1.transform.position - this.transform.position).normalized;
 			movement = new Vector2 (speed.x * direction.x, speed.y * direction.y);
 			movement *= Time.deltaTime;
 
-			if(movement.x > 0)
-				animator.SetInteger("Direction", 1);
-			else if(movement.x < 0)
-				animator.SetInteger("Direction", 0);
-			
-			//rb.MovePosition(movement);
-			transform.Translate (movement);
+
+				if(movement.x > 0)
+				{
+					facingRight = true;
+					animator.SetInteger("Direction", 1);
+				}
+				else if(movement.x < 0)
+				{
+					facingRight = false;
+					animator.SetInteger("Direction", 0);
+				}
+				
+				//rb.MovePosition(movement);
+				transform.Translate (movement);
+			}
+			else
+			{
+				movement = new Vector2 (0, 0);
+				movement *= Time.deltaTime;
+			}
 
 			// 4 - Out of the camera ? Destroy the game object.
 			if (GetComponent<Renderer>().IsVisibleFrom(Camera.main) == false)
@@ -74,5 +91,21 @@ public class MeleeEnemyScript : MonoBehaviour {
 		// Enable everything
 		// -- Collider
 		GetComponent<Collider2D>().enabled = true;
+	}
+
+	void deadNow()
+	{
+		//animator.pl
+		//gameObject.SetActive (0);
+		if(facingRight)
+			animator.Play ("Rat Dead Right_");
+		else
+			animator.Play ("Rat Dead Left_");
+		Destroy (this.gameObject.GetComponent<Rigidbody2D> ());
+		Destroy (this.gameObject.GetComponent<BoxCollider2D> ());
+		dead = true;
+		Destroy (gameObject, 0.6f);
+		//animator.SetInteger ("Direction", 4);
+		Debug.Log ("RECEIVED MESSAGE");
 	}
 }

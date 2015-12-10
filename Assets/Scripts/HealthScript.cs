@@ -9,6 +9,7 @@ public class HealthScript : MonoBehaviour
 	/// Total hitpoints
 	/// </summary>
 	public int hp = 1;
+	public GameObject bloodsplatter;
 	
 	/// <summary>
 	/// Enemy or player?
@@ -26,7 +27,10 @@ public class HealthScript : MonoBehaviour
 		if (hp <= 0)
 		{
 			// Dead!
-			Destroy(gameObject);
+			//Destroy (gameObject, 5);
+
+			Debug.Log("Attempginty to send message");
+			gameObject.SendMessage("deadNow");
 		}
 	}
 	
@@ -41,6 +45,8 @@ public class HealthScript : MonoBehaviour
 			// Avoid friendly fire
 			if (shot.isEnemyShot != isEnemy)
 			{
+				Debug.Log("BloodPLASPTEKTRJ:");
+				Instantiate(bloodsplatter, gameObject.transform.position, Quaternion.identity);
 				Damage(shot.damage);
 				
 				// Destroy the shot

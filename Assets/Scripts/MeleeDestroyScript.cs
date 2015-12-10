@@ -9,7 +9,7 @@ public class MeleeDestroyScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () 
 	{
-		Destroy (gameObject, 0.8f);
+		Destroy (gameObject, 0.6f);
 		
 	}
 	

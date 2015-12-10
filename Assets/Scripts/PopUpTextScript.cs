@@ -16,7 +16,7 @@ public class PopUpTextScript : MonoBehaviour {
 		//Debug.Log (style.fontSize);
 		if(Screen.height > 720)
 		{
-			Debug.Log("Adjusted the shit");
+			//Debug.Log("Adjusted the shit");
 			style.fontSize = style.fontSize +10;
 			offset = 50;
 		}

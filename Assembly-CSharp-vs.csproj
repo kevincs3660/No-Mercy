@@ -50,11 +50,13 @@
      <Compile Include="Assets\Scripts\Boss1 Scripts\BossScript.cs" />
      <Compile Include="Assets\Scripts\Boss2\Boss2Script.cs" />
      <Compile Include="Assets\Scripts\Boss2\BossDead2.cs" />
+     <Compile Include="Assets\Scripts\Boss3\Boss3DeadCheck.cs" />
      <Compile Include="Assets\Scripts\Boss3\Boss3Script.cs" />
      <Compile Include="Assets\Scripts\CameraDirectionScript.cs" />
      <Compile Include="Assets\Scripts\CameraFollow2D.cs" />
      <Compile Include="Assets\Scripts\CharacterController2D.cs" />
      <Compile Include="Assets\Scripts\EndLevel1Script.cs" />
+     <Compile Include="Assets\Scripts\EnemyObject.cs" />
      <Compile Include="Assets\Scripts\GameOverScript.cs" />
      <Compile Include="Assets\Scripts\GameWinScript.cs" />
      <Compile Include="Assets\Scripts\HealthScript.cs" />
@@ -71,6 +73,7 @@
      <Compile Include="Assets\Scripts\PopUpTextScript.cs" />
      <Compile Include="Assets\Scripts\RangedEnemyScript.cs" />
      <Compile Include="Assets\Scripts\RapidFireScript.cs" />
+     <Compile Include="Assets\Scripts\RatHealthScript.cs" />
      <Compile Include="Assets\Scripts\RendererExtensions.cs.cs" />
      <Compile Include="Assets\Scripts\ScrollingScript.cs" />
      <Compile Include="Assets\Scripts\ShotScript.cs" />

@@ -35,6 +35,7 @@ public class PlayerController2 : MonoBehaviour {
 	public  int dashCooldownCounter;
 	private bool dashing;
 	private Animator animator;
+
 	//private bool rapidFire = false;
 	enum characterStates
 	{
@@ -98,7 +99,7 @@ public class PlayerController2 : MonoBehaviour {
 
 			velocity.x = 0;
 
-
+			//animator.SetInteger("Melee", 0);
 			if (inputX < 0) {
 				//Debug.Log("IN IDLE: Input is: " + inputX + " changing to face LEFT");
 				velocity.x = -speed;
@@ -125,11 +126,18 @@ public class PlayerController2 : MonoBehaviour {
 				//Debug.Log("STopping playback");
 
 				//animator.SetInteger("Direction", 2);
-				animator.enabled = false;
-				if(facingRight)
-					gameObject.GetComponent<SpriteRenderer>().sprite = facingRightImage;
+				if(animator.GetCurrentAnimatorStateInfo(0).IsName("Lance _Land_ Shark Melee Right_") || animator.GetCurrentAnimatorStateInfo(0).IsName("Lance _Land_ Shark Melee Left_"))
+				{
+				}
 				else
-					gameObject.GetComponent<SpriteRenderer>().sprite = facingLeftImage;
+				{
+					animator.enabled = false;
+					if(facingRight)
+						gameObject.GetComponent<SpriteRenderer>().sprite = facingRightImage;
+					else
+						gameObject.GetComponent<SpriteRenderer>().sprite = facingLeftImage;
+				}
+
 			}
 
 
@@ -146,6 +154,14 @@ public class PlayerController2 : MonoBehaviour {
 
 			if (Input.GetKeyDown (KeyCode.DownArrow) == true) {
 				AudioSource.PlayClipAtPoint (meleeAttack, transform.position, 0.5f);
+				animator.enabled = true;
+				//animator.SetInteger("Direction", 4);
+				if(facingRight)
+					animator.Play("Lance _Land_ Shark Melee Right_");
+				else
+					animator.Play("Lance _Land_ Shark Melee Left_");
+				//animator.enabled = false;
+
 				if (_weapons[2] != null && _weapons[3] != null)
 					if(facingRight)
 						_weapons[2].Attack(false);
@@ -178,7 +194,8 @@ public class PlayerController2 : MonoBehaviour {
 			_controller.move (velocity * Time.deltaTime);
 			break;
 		case characterStates.RUNNING:
-
+			//animator.StopPlayback();
+			//animator.SetInteger("Melee", 0);
 			if(dashEnabled == false)
 				dashCooldownCounter--;
 			else
@@ -219,8 +236,6 @@ public class PlayerController2 : MonoBehaviour {
 			if (Input.GetKey (KeyCode.LeftShift) == true && dashEnabled) {
 				if (inputX < 0)
 				{
-	
-			
 					velocity.x = -speed * 2;
 					dashCounter--;
 					if(dashCounter <= 0)
@@ -247,6 +262,11 @@ public class PlayerController2 : MonoBehaviour {
 			}
 
 			if (Input.GetKeyDown (KeyCode.DownArrow) == true) {
+				AudioSource.PlayClipAtPoint (meleeAttack, transform.position, 0.5f);
+				if(facingRight)
+					animator.Play("Lance _Land_ Shark Melee Right_");
+				else
+					animator.Play("Lance _Land_ Shark Melee Left_");
 				if (_weapons[2] != null && _weapons[3] != null)
 					if(facingRight)
 					_weapons[2].Attack(false);
@@ -281,6 +301,7 @@ public class PlayerController2 : MonoBehaviour {
 			break;
 		case characterStates.JUMPING:
 
+			//animator.SetInteger("Melee", 0);
 			if(dashEnabled == false)
 				dashCooldownCounter--;
 			else
@@ -359,6 +380,7 @@ public class PlayerController2 : MonoBehaviour {
 			else
 				if(dashCounter < dashTime)
 					dashCounter+= 0.5f;
+			//animator.SetInteger("Direction", 4);
 
 			meleeTimer--;
 

@@ -47,7 +47,7 @@ public class Boss3Script : MonoBehaviour {
 				Instantiate(phase2Camera);
 				Debug.Log ("MOVE TO NEXT THING");
 				startMove = true;
-				weapons[0].shootingRate =100f;
+				weapons[0].shootingRate =1.5f;
 				phase1Complete = true;
 				movementSpeed = 4.5f;
 
@@ -113,6 +113,6 @@ public class Boss3Script : MonoBehaviour {
 
 	void OnDestroy()
 	{
-		transform.parent.gameObject.AddComponent<GameWinScript>();
+		//transform.parent.gameObject.AddComponent<GameWinScript>();
 	}
 }
