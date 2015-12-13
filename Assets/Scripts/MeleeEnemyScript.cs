@@ -93,6 +93,17 @@ public class MeleeEnemyScript : MonoBehaviour {
 		GetComponent<Collider2D>().enabled = true;
 	}
 
+	void OnCollisionEnter2D(Collision2D collision)
+	{
+		//PlayerController2 player = collision.gameObject.GetComponent<PlayerController2>();
+		PlayerHealthScript playerHealth = collision.gameObject.GetComponent<PlayerHealthScript>();
+		if(playerHealth != null)
+		{
+
+			playerHealth.Damage(1);
+		}
+	}
+
 	void deadNow()
 	{
 		//animator.pl
@@ -106,6 +117,6 @@ public class MeleeEnemyScript : MonoBehaviour {
 		dead = true;
 		Destroy (gameObject, 0.6f);
 		//animator.SetInteger ("Direction", 4);
-		Debug.Log ("RECEIVED MESSAGE");
+		//Debug.Log ("RECEIVED MESSAGE");
 	}
 }

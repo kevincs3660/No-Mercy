@@ -440,6 +440,7 @@ public class PlayerController2 : MonoBehaviour {
 		}
 	}
 
+	/*
 	void OnCollisionEnter2D(Collision2D collision)
 	{
 		bool damagePlayer = false;
@@ -467,7 +468,7 @@ public class PlayerController2 : MonoBehaviour {
 		}
 
 
-	}
+	}*/
 
 	IEnumerator upgradeTimerRoutine (float timelength){
 

@@ -29,7 +29,7 @@ public class HealthScript : MonoBehaviour
 			// Dead!
 			//Destroy (gameObject, 5);
 
-			Debug.Log("Attempginty to send message");
+			//Debug.Log("Attempginty to send message");
 			gameObject.SendMessage("deadNow");
 		}
 	}
@@ -45,7 +45,7 @@ public class HealthScript : MonoBehaviour
 			// Avoid friendly fire
 			if (shot.isEnemyShot != isEnemy)
 			{
-				Debug.Log("BloodPLASPTEKTRJ:");
+				//Debug.Log("BloodPLASPTEKTRJ:");
 				Instantiate(bloodsplatter, gameObject.transform.position, Quaternion.identity);
 				Damage(shot.damage);
 				
