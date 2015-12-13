@@ -69,11 +69,14 @@ public class RangedEnemyScript : MonoBehaviour
 				{
 					facingRight = true;
 					this.GetComponent<SpriteRenderer>().sprite = facingRightImage;
+					//weapons[0].transform.position = new Vector2(this.transform.position.x + .5f, this.transform.position.y + 0.25f);
+					weapons[0].transform.localPosition = new Vector2(0.5f, 0.25f);
 				}
 				else if(movement.x < 0)
 				{
 					facingRight = false;
 					this.GetComponent<SpriteRenderer>().sprite = facingLeftImage;
+					weapons[0].transform.localPosition = new Vector2(-0.5f,  0.25f);
 				}
 				// Auto-fire
 				foreach (WeaponScript weapon in weapons)
