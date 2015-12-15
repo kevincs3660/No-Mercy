@@ -22,6 +22,7 @@ public class Boss3Script : MonoBehaviour {
 		movement = this.gameObject.transform.position;
 		health = this.GetComponent<HealthScript>();
 		weapons = GetComponentsInChildren<WeaponScript>();
+		health.hp = 1000;
 
 	
 	}
@@ -50,6 +51,7 @@ public class Boss3Script : MonoBehaviour {
 				weapons[0].shootingRate =1.5f;
 				phase1Complete = true;
 				movementSpeed = 4.5f;
+				health.hp = 1000;
 
 			}
 			if(startMove)
@@ -94,7 +96,8 @@ public class Boss3Script : MonoBehaviour {
 	{
 		if(collision.gameObject.tag == "Boss3Stop")
 		{
-			Debug.Log ("collided with shit");
+			//Debug.Log ("collided with shit");
+			health.hp = 2;
 			startMove = false;
 		}
 		else if(collision.gameObject.tag == "Boss3Stop2")
@@ -102,12 +105,15 @@ public class Boss3Script : MonoBehaviour {
 			startMove = false;
 			phase2Complete = true;
 			weapons[0].shootingRate = 1f;
+			health.hp = 1;
 		}
 
 		PlayerController2 player = collision.gameObject.GetComponent<PlayerController2>();
 		if(player != null)
 		{
-			Destroy(player.gameObject);
+			PlayerHealthScript playerHealth = player.gameObject.GetComponent<PlayerHealthScript>();
+			playerHealth.Damage(1);
+			//Destroy(player.gameObject);
 		}
 	}
 
