@@ -34,6 +34,8 @@ public class SprintBarScript : MonoBehaviour {
 		
 		if(size.x < 125)
 			size.x = 125;
+		if (size.x > 180)
+			size.x = 160;
 		//Debug.Log (size.x);
 		//Debug.Log("Size.x" + size.x);
 		// draw the background:
