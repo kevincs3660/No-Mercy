@@ -17,16 +17,17 @@ public class Boss2Script : MonoBehaviour {
 	private bool topFinished = true;
 	private bool bottomFinished = true;
 	private GameObject player;
-	private Animator animator;
+	//private Animator animator;
 	private bool facingRight;
 	private Vector2 direction;
 	public Sprite facingRightImage;
 	public Sprite facingLeftImage;
+	public AudioClip death;
 
 	void Awake()
 	{
-		animator = this.gameObject.GetComponent<Animator> ();
-		animator.enabled = false;
+		//animator = this.gameObject.GetComponent<Animator> ();
+		//animator.enabled = false;
 		weapons = GetComponentsInChildren<WeaponScript>();
 	}
 
@@ -174,7 +175,7 @@ public class Boss2Script : MonoBehaviour {
 		{
 			//movement.y += 440f;
 			//movement *= Time.deltaTime;
-			Debug.Log ("Ended drivebyBottom");
+			//Debug.Log ("Ended drivebyBottom");
 			Vector2 pos = new Vector2(this.transform.position.x, this.transform.position.y + 7.2f);
 			this.transform.position = pos;
 			Debug.Log(this.transform.position);
@@ -234,22 +235,24 @@ public class Boss2Script : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D collision)
 	{
 		PlayerController2 player = collision.gameObject.GetComponent<PlayerController2>();
-		if(player != null)
+		PlayerHealthScript playerHealth = collision.GetComponent<PlayerHealthScript> ();
+		if(playerHealth != null)
 		{
-			Destroy(player.gameObject);
+			playerHealth.Damage(1);
 		}
 	}
 
 	void deadNow()
 	{
 		//Destroy (this.gameObject.GetComponent<Rigidbody2D> ());
+		AudioSource.PlayClipAtPoint (death, transform.position, 0.5f);
 		Destroy (this.gameObject.GetComponent<BoxCollider2D> ());
 		Destroy (gameObject, 0.6f);
-		animator.enabled = true;
+		/*animator.enabled = true;
 		if(facingRight)
 			animator.Play ("Dead Fox Right_");
 		else
-			animator.Play ("Dead Fox Left_");
+			animator.Play ("Dead Fox Left_");*/
 		//dead = true;
 		Destroy (gameObject, 1);
 	}

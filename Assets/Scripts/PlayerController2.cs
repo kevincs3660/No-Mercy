@@ -7,7 +7,7 @@ public class PlayerController2 : MonoBehaviour {
 	public float speed = 8;
 	public float gravity = -35;
 	public float jumpHeight = 5;
-	public int meleeTimer = 20;
+	public int meleeTimer = 50;
 	public int rapidFireTimer = 100;
 	public Sprite facingLeftImage;
 	public Sprite facingRightImage;
@@ -35,6 +35,8 @@ public class PlayerController2 : MonoBehaviour {
 	public  int dashCooldownCounter;
 	private bool dashing;
 	private Animator animator;
+
+	public AudioClip shotSound;
 
 	//private bool rapidFire = false;
 	enum characterStates
@@ -98,7 +100,7 @@ public class PlayerController2 : MonoBehaviour {
 
 
 			velocity.x = 0;
-
+			//Debug.Log ("IDLE");
 			//animator.SetInteger("Melee", 0);
 			if (inputX < 0) {
 				//Debug.Log("IN IDLE: Input is: " + inputX + " changing to face LEFT");
@@ -128,6 +130,7 @@ public class PlayerController2 : MonoBehaviour {
 				//animator.SetInteger("Direction", 2);
 				if(animator.GetCurrentAnimatorStateInfo(0).IsName("Lance _Land_ Shark Melee Right_") || animator.GetCurrentAnimatorStateInfo(0).IsName("Lance _Land_ Shark Melee Left_"))
 				{
+					//Debug.Log("in here yo");
 				}
 				else
 				{
@@ -140,7 +143,7 @@ public class PlayerController2 : MonoBehaviour {
 
 			}
 
-
+	
 			if (Input.GetAxis ("Jump") > 0 && _controller.isGrounded) 
 			{	
 				animator.enabled = false;
@@ -174,15 +177,17 @@ public class PlayerController2 : MonoBehaviour {
 			if (shoot) {
 
 				if (_weapons [0] != null && _weapons [1] != null)
-				if (inputX > 0)
-					_weapons [0].Attack (false);
-				else if (inputX < 0)
-					_weapons [1].Attack (false);
-				else {
-					if (facingRight)
+				{
+					if (inputX > 0)
 						_weapons [0].Attack (false);
-					else
+					else if (inputX < 0)
 						_weapons [1].Attack (false);
+					else {
+						if (facingRight)
+							_weapons [0].Attack (false);
+						else
+							_weapons [1].Attack (false);
+					}
 				}
 			
 				//_weapons[0].Attack(false, shotDirection);
@@ -380,12 +385,17 @@ public class PlayerController2 : MonoBehaviour {
 			else
 				if(dashCounter < dashTime)
 					dashCounter+= 0.5f;
+
+			if (Input.GetAxis ("Jump") > 0 && _controller.isGrounded)
+			{
+			}
 			//animator.SetInteger("Direction", 4);
-
+			//Debug.Log (meleeTimer);
 			meleeTimer--;
-
+			//Debug.Log("in melee");
 			if(meleeTimer <= 0)
 			{
+				//Debug.Log("End Melee");
 				state = characterStates.IDLE;
 				meleeTimer = meleeTimerReset;
 			}
@@ -416,7 +426,7 @@ public class PlayerController2 : MonoBehaviour {
 
 		if(invincible != null)
 		{
-			Debug.Log("Collision with invincible");
+			//Debug.Log("Collision with invincible");
 
 			AudioSource.PlayClipAtPoint (invincibleSound, transform.position, 0.5f);
 			PlayerHealthScript playerhealth = this.GetComponent<PlayerHealthScript>();
@@ -512,7 +522,7 @@ public class PlayerController2 : MonoBehaviour {
 		float timer = 0;
 		bool thing = true;
 
-		Debug.Log("Doing THE THING");
+		//Debug.Log("Doing THE THING");
 		while (timer < timeLength)
 		{
 			if(thing)

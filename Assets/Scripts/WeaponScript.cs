@@ -6,6 +6,7 @@ using System.Collections;
 /// </summary>
 public class WeaponScript : MonoBehaviour
 {
+	public AudioClip playerShot;
 	//--------------------------------
 	// 1 - Designer variables
 	//--------------------------------
@@ -57,7 +58,9 @@ public class WeaponScript : MonoBehaviour
 			
 			// Assign position
 			shotTransform.position = transform.position;
-			
+			//Debug.Log(this.tag);
+			if(transform.parent.gameObject.tag == "Player" && this.tag == "Fireball")
+				AudioSource.PlayClipAtPoint (playerShot, transform.position, 0.4f);
 			// The is enemy property
 			ShotScript shot = shotTransform.gameObject.GetComponent<ShotScript>();
 			if (shot != null)

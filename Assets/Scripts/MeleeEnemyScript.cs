@@ -18,6 +18,7 @@ public class MeleeEnemyScript : MonoBehaviour {
 	//private Rigidbody2D rb;
 	private Vector2 direction;
 	private Vector2 movement;
+	public AudioClip smack;
 	// Use this for initialization
 	void Start () {
 
@@ -99,7 +100,7 @@ public class MeleeEnemyScript : MonoBehaviour {
 		PlayerHealthScript playerHealth = collision.gameObject.GetComponent<PlayerHealthScript>();
 		if(playerHealth != null)
 		{
-
+			AudioSource.PlayClipAtPoint (smack, transform.position, 0.5f);
 			playerHealth.Damage(1);
 		}
 	}

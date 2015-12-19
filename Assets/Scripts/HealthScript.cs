@@ -45,7 +45,7 @@ public class HealthScript : MonoBehaviour
 			// Avoid friendly fire
 			if (shot.isEnemyShot != isEnemy)
 			{
-				//Debug.Log("BloodPLASPTEKTRJ:");
+				Debug.Log("BloodPLASPTEKTRJ:");
 				Instantiate(bloodsplatter, gameObject.transform.position, Quaternion.identity);
 				Damage(shot.damage);
 				

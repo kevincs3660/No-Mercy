@@ -15,11 +15,17 @@ public class RangedEnemyScript : MonoBehaviour
 	private bool dead = false;
 	private bool facingRight;
 	private Animator animator;
+
+	public AudioClip death;
 	
 	void Awake()
 	{
-		animator = this.gameObject.GetComponent<Animator> ();
-		animator.enabled = false;
+		//Debug.Log (this.tag != "Boss3");
+		if (this.tag != "Clone" && this.tag != "Boss3" && this.tag != "Boss2" && this.tag != "Boss1") {
+			//Debug.Log(this.tag);
+			animator = this.gameObject.GetComponent<Animator> ();
+			animator.enabled = false;
+		}
 		// Retrieve the weapon only once
 		weapons = GetComponentsInChildren<WeaponScript>();
 		GameObject player = GameObject.Find ("Player");
@@ -70,13 +76,15 @@ public class RangedEnemyScript : MonoBehaviour
 					facingRight = true;
 					this.GetComponent<SpriteRenderer>().sprite = facingRightImage;
 					//weapons[0].transform.position = new Vector2(this.transform.position.x + .5f, this.transform.position.y + 0.25f);
-					weapons[0].transform.localPosition = new Vector2(0.5f, 0.25f);
+					if(this.tag != "Boss3" && this.tag != "Boss1")
+						weapons[0].transform.localPosition = new Vector2(0.5f, 0.25f);
 				}
 				else if(movement.x < 0)
 				{
 					facingRight = false;
 					this.GetComponent<SpriteRenderer>().sprite = facingLeftImage;
-					weapons[0].transform.localPosition = new Vector2(-0.5f,  0.25f);
+					if(this.tag != "Boss3" && this.tag != "Boss1")
+						weapons[0].transform.localPosition = new Vector2(-0.5f,  0.25f);
 				}
 				// Auto-fire
 				foreach (WeaponScript weapon in weapons)
@@ -116,13 +124,16 @@ public class RangedEnemyScript : MonoBehaviour
 	void deadNow()
 	{
 		//Destroy (this.gameObject.GetComponent<Rigidbody2D> ());
+		AudioSource.PlayClipAtPoint (death, transform.position, 0.35f);
 		Destroy (this.gameObject.GetComponent<BoxCollider2D> ());
 		Destroy (gameObject, 0.6f);
-		animator.enabled = true;
-		if(facingRight)
-			animator.Play ("Dead Fox Right_");
-		else
-			animator.Play ("Dead Fox Left_");
+		if (this.tag != "Clone" && this.tag != "Boss3" && this.tag != "Boss2"  && this.tag != "Boss1") {
+			animator.enabled = true;
+			if (facingRight)
+				animator.Play ("Dead Fox Right_");
+			else
+				animator.Play ("Dead Fox Left_");
+		}
 		dead = true;
 		Destroy (gameObject, 1);
 	}
