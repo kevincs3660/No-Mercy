@@ -100,7 +100,8 @@ public class MeleeEnemyScript : MonoBehaviour {
 		PlayerHealthScript playerHealth = collision.gameObject.GetComponent<PlayerHealthScript>();
 		if(playerHealth != null)
 		{
-			AudioSource.PlayClipAtPoint (smack, transform.position, 0.5f);
+			if(smack != null)
+				AudioSource.PlayClipAtPoint (smack, transform.position, 0.5f);
 			playerHealth.Damage(1);
 		}
 	}

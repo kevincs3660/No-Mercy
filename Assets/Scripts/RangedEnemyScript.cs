@@ -124,7 +124,8 @@ public class RangedEnemyScript : MonoBehaviour
 	void deadNow()
 	{
 		//Destroy (this.gameObject.GetComponent<Rigidbody2D> ());
-		AudioSource.PlayClipAtPoint (death, transform.position, 0.35f);
+		if(death != null)
+			AudioSource.PlayClipAtPoint (death, transform.position, 0.35f);
 		Destroy (this.gameObject.GetComponent<BoxCollider2D> ());
 		Destroy (gameObject, 0.6f);
 		if (this.tag != "Clone" && this.tag != "Boss3" && this.tag != "Boss2"  && this.tag != "Boss1") {
